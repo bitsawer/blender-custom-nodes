@@ -4,7 +4,7 @@ This repository contains files for adding a G'MIC compositor node for Blender. C
 
 ## How to use
 
-Download or build your own Blender with the node. The G'MIC node if found in the compositor under the "Add -> Filter -> G'MIC". It works like a norma node, just put G'MIC commands into the node text field.
+Download or build your own Blender with the node. The G'MIC node is found in the compositor under the "Add -> Filter -> G'MIC". It works like a norma node, just put G'MIC commands into the node text field.
 
 Some operations can be pretty slow, especially with large images. You can adjust the scaling quality if you are not rendering the final image and you are just tweaking other nodes.
 
@@ -17,6 +17,8 @@ Some operations can be pretty slow, especially with large images. You can adjust
 * Argument slots can be used to pass arguments to your commands. You can reference variables like this: "$arg1".
 
 ## Troubleshooting and tips
+
+* If you encounter missing .dll errors when starting Blender, try installing [Microsoft Visual C++ Redistributable for Visual Studio 2017](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
 
 * You can accidentally put commands (like "-display" or just a single, lone "-"-character) into the node which will prompt GMIC to do something interactively. Don't do that. You can usually notice this if the progress bar in the compositing view is not going away (or the filter can just be slow). In some cases you can open the console and type some text and press enter to recover. Sometimes the safest bet is to kill the Blender-process and start it again.
 

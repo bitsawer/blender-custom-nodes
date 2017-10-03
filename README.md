@@ -1,6 +1,6 @@
 # blender-gmic
 
-This repository contains files for adding a G'MIC compositor node for Blender. Currently Windows only, but it should not be hard to add support for Linux and Mac at some point.
+This repository contains files for adding a [G'MIC](http://gmic.eu/) compositor node for Blender. Currently Windows only, but it should not be hard to add support for Linux and Mac at some point.
 
 ## [Get the latest binary release (Win64)](/../../releases/latest)
 
@@ -8,7 +8,7 @@ If you encounter missing .dll errors when starting Blender, try installing [Micr
 
 ## How to use
 
-Download or build your own Blender with the node. The G'MIC node is found in the compositor under the "Add -> Filter -> G'MIC". It works like a norma node, just put G'MIC commands into the node text field.
+Download or build your own Blender with the node. The G'MIC node is found in the compositor under the "Add -> Filter -> G'MIC". It works like a normal node, just put G'MIC commands into the node text field.
 
 Some operations can be pretty slow, especially with large images. You can adjust the scaling quality if you are not rendering the final image and you are just tweaking other nodes.
 

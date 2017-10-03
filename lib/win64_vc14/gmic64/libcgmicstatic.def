@@ -1,0 +1,4 @@
+EXPORTS
+    gmic_call @24
+    gmic_delete_external @25
+    gmic_get_stdlib @26

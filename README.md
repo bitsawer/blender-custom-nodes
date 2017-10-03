@@ -1,8 +1,10 @@
 # blender-gmic
 
-This repository contains files for adding a [G'MIC](http://gmic.eu/) compositor node for Blender. Currently Windows only, but it should not be hard to add support for Linux and Mac at some point.
+This repository contains files for adding a [G'MIC](http://gmic.eu/) compositor node in Blender. Currently Windows only, but it should not be hard to add support for Linux and Mac at some point.
 
 ## [Get the latest binary release (Win64)](/../../releases/latest)
+
+Watch the [demo video](https://www.youtube.com/watch?v=vGNB13ovwk4) to see the node in action.
 
 If you encounter missing .dll errors when starting Blender, try installing [Microsoft Visual C++ Redistributable for Visual Studio 2017](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
 

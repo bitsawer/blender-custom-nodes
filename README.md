@@ -1,12 +1,19 @@
 # blender-gmic
 
-This repository contains files for adding a [G'MIC](http://gmic.eu/) compositor node in Blender. Currently Windows only, but it should not be hard to add support for Linux and Mac at some point.
-
-## [Get the latest binary release (Win64)](/../../releases/latest)
+This repository contains files for adding a [G'MIC](http://gmic.eu/) compositor node in Blender. It supports all basic commands and also many GIMP-plugin extensions. Currently Windows only, but it should not be hard to add support for Linux and Mac at some point.
 
 Watch the [demo video](https://www.youtube.com/watch?v=vGNB13ovwk4) to see the node in action.
 
+## [Get the latest binary release (Win64)](/../../releases/latest)
+
 If you encounter missing .dll errors when starting Blender, try installing [Microsoft Visual C++ Redistributable for Visual Studio 2017](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
+
+## What's new?
+
+**0.2.0**
+
+* Added support for many GIMP-plugin filters
+* Fixed color space handling
 
 ## How to use
 
@@ -18,9 +25,13 @@ Some operations can be pretty slow, especially with large images. You can adjust
 
 * Quality setting can be used to scale down the image for faster processing. This is useful if you are working with a large image with a complex node tree. Just remember to set quality to high once you are ready to save the final output.
 
-* Normalize can be used to normalize RGBA values to 0-1.0 range. This just inserts command "-n 0,1" after user command string.
+* Normalize can be used to normalize RGBA values to 0-1.0 range, perform color space conversion and image orientation fixes. You usually want to keep this on, but you can also do these manually if you want more control.
 
 * Argument slots can be used to pass arguments to your commands. You can reference variables like this: "$arg1".
+
+## GIMP-plugin commands
+
+The release ships with a version of the GIMP-plugin and most filters seem to work out of the box. This is still work in progess, so some of them don't work yet. Many GIMP filters use images that are placed in your "%APPDATA%/gmic"-directory. G'MIC bundled with the Blender release will find them from there if they exist. You can download the whole package from [this link](http://gmic.eu/gmic_all_data.zip) and extract the contents into the target directory.
 
 ## Troubleshooting and tips
 

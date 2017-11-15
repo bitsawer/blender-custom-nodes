@@ -52,6 +52,57 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
 }
 ```
 
+## Python Script Node
+
+The purpose of this node is to enable complex new functionality to the compositor without recompiling Blender. The node can be used to make simple modifications to the input image, draw shapes or text, generate procedural images or even use complex third-party libraries. Pillow image processing library is included in the distribution. Thread safety of Pillow is not explicitly documented, so it might be safest to only use it during script import and in on_main().
+
+A **pycompositor** helper module is can be imported by the scripts. It contains some helper functions and it can be used to interface with the [Pillow](https://pillow.readthedocs.io/en/4.3.x/) image processing library. The module is located in ***2.79/scripts/modules*** directory and can be useful as an example.
+
+Here is a simple example script. Images are [numpy arrays](http://www.numpy.org/) which makes it possible to do image processing in an efficient manner. The images are 3D-arrays with a shape of (height, width, depth). Depth is always 4 (red, green, blue and alpha). Image data is also "upside down" as the y-axis starts from the bottom.
+
+```python
+import bpy # If you want to read any Blender data
+import numpy as np
+import pycompositor # Helper script
+from PIL import Image, ImageDraw # Pillow
+
+def on_main(context):
+    """on_main() is called in the main thread and can be used to access Blender and other libraries in a 
+        thread-safe manner. It is possible to add extra data to the context object and use it later
+        in the on_async()."""
+    images = context["images"] # A list of 4 node input images
+    inputs = context["inputs"] # A list of 8 node input values
+    outputs = context["outputs"] # A list of 1 node output image. Might have more in the future
+    out = outputs[0] # Final output image
+    
+    # Copy Image 0 to output without any modifications
+    #out[:] = images[0]
+    
+    # Set output to green
+    #out[:] = (0, 1, 0, 1)
+    
+    # Draw a 10 pixel wide horizontal line at the middle of the image
+    #y = int(out.shape[0] / 2)
+    #out[y:y+10] = (1, 0, 0, 1) #Overwrite image alpha with 1.0
+    #out[y:y+10,:,0:3] = (1, 0, 0) #Same as above, but don't touch image alpha, only RGB
+    
+    # Convert input Image 0 to Pillow image and metadata
+    im, meta = pycompositor.array_to_pil(images[0])
+    
+    # Draw a red line
+    draw = ImageDraw.Draw(im)
+    draw.line((0, 0) + im.size, fill=(255, 0, 0, 255), width=5)
+    
+    # Write Pillow image back to output image
+    out[:] = pycompositor.pil_to_array(im, meta)
+    
+def on_async(context):
+    """on_async() is called in background thread after on_main() and should be used for processing 
+        that takes a long time to avoid blocking Blender UI. Do not touch anything that is not
+        thread safe from this function."""
+    pass
+```
+
 ## Troubleshooting and tips
 
 * You can accidentally put commands (like "-display" or just a single, lone "-"-character) into the node which will prompt GMIC to do something interactively. Don't do that. You can usually notice this if the progress bar in the compositing view is not going away (or the filter can just be slow). In some cases you can open the console and type some text and press enter to recover. Sometimes the safest bet is to kill the Blender-process and start it again.

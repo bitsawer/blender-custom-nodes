@@ -31,6 +31,27 @@ The release ships with a version of the GIMP-plugin and most filters seem to wor
 
 * Argument slots can be used to pass arguments to your commands. You can reference variables like this: "$arg1".
 
+## GLSL Shader Node
+
+The shader node uses (mostly) Shadertoy compatible functions and variables. See the [Shadertoy documentation](https://www.shadertoy.com/howto) for more information. You can use this very simple script to test node functionality:
+
+```glsl
+void mainImage(out vec4 fragColor, in vec2 fragCoord)
+{	
+    fragColor = vec4(0.0, 1.0, 0.0, 1.0); //Output a completely green image (RGBA)
+}
+```
+
+Another simple example is a mix node that mixes input image channels 0 and 1 together. If the images are read from a file/render layer and not generated in shader, disable node Gamma Correction. Control the mix factor by adjusting the node Input 0 (should be from 0.0 to 1.0).
+
+```glsl
+void mainImage(out vec4 fragColor, in vec2 fragCoord)
+{	
+    vec2 uv = fragCoord.xy / iResolution.xy;
+    fragColor = mix(texture(iChannel0, uv), texture(iChannel1, uv), input0);
+}
+```
+
 ## Troubleshooting and tips
 
 * You can accidentally put commands (like "-display" or just a single, lone "-"-character) into the node which will prompt GMIC to do something interactively. Don't do that. You can usually notice this if the progress bar in the compositing view is not going away (or the filter can just be slow). In some cases you can open the console and type some text and press enter to recover. Sometimes the safest bet is to kill the Blender-process and start it again.

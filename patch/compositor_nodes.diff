@@ -1500,10 +1500,10 @@ index 0000000..234d745
 +#endif
 diff --git a/source/blender/compositor/operations/COM_PythonOperation.cpp b/source/blender/compositor/operations/COM_PythonOperation.cpp
 new file mode 100644
-index 0000000..1d7f6d1
+index 0000000..d36a5d4
 --- /dev/null
 +++ b/source/blender/compositor/operations/COM_PythonOperation.cpp
-@@ -0,0 +1,303 @@
+@@ -0,0 +1,297 @@
 +
 +#include <string>
 +#include <fstream>
@@ -1515,30 +1515,26 @@ index 0000000..1d7f6d1
 +
 +#include "COM_PythonOperation.h"
 +
++extern "C"
++void initCompositorPython()
++{
++	if (PyArray_API == NULL) {
++		//This does not seem to be the best way to do this...
++		if (_import_array() < 0) {
++			if (PyErr_Occurred()) {
++				PyErr_Print();
++			}
++			Py_FatalError("Can't import numpy array");
++		}
++	}
++}
++
 +void fatal(const char *message)
 +{
 +	if (PyErr_Occurred()) {
 +		PyErr_Print();
 +	}
 +	Py_FatalError(message);
-+}
-+
-+void initPython()
-+{
-+	if (PyEval_ThreadsInitialized() == 0) {
-+		PyEval_InitThreads();
-+	}
-+
-+	PyGILState_STATE gstate = PyGILState_Ensure();
-+
-+	if (PyArray_API == NULL) {
-+		//This does not seem to be the best way to do this...
-+		if (_import_array() < 0) {
-+			fatal("Can't import numpy array");
-+		}
-+	}
-+
-+	PyGILState_Release(gstate);
 +}
 +
 +PythonOperation::PythonOperation() : SingleThreadedOperation()
@@ -1553,8 +1549,6 @@ index 0000000..1d7f6d1
 +	setResolutionInputSocketIndex(0);
 +
 +	m_data = NULL;
-+
-+	initPython();
 +}
 +
 +void PythonOperation::initExecution()
@@ -2213,6 +2207,28 @@ index 0000000..4651303
 +
 +	nodeRegisterType(&ntype);
 +}
+diff --git a/source/blender/python/intern/bpy_interface.c b/source/blender/python/intern/bpy_interface.c
+index 20cfd36..0e10e21 100644
+--- a/source/blender/python/intern/bpy_interface.c
++++ b/source/blender/python/intern/bpy_interface.c
+@@ -231,6 +231,8 @@ static struct _inittab bpy_internal_modules[] = {
+ 	{NULL, NULL}
+ };
+ 
++int initCompositorPython();
++
+ /* call BPY_context_set first */
+ void BPY_python_start(int argc, const char **argv)
+ {
+@@ -326,6 +328,8 @@ void BPY_python_start(int argc, const char **argv)
+ 	
+ 	pyrna_alloc_types();
+ 
++	initCompositorPython();
++
+ #ifndef WITH_PYTHON_MODULE
+ 	/* py module runs atexit when bpy is freed */
+ 	BPY_atexit_register(); /* this can init any time */
 diff --git a/source/blender/windowmanager/WM_api.h b/source/blender/windowmanager/WM_api.h
 index e400268..a603cfc 100644
 --- a/source/blender/windowmanager/WM_api.h
@@ -2262,7 +2278,7 @@ index fbd6d89..b1c5445 100644
  		/* placed after the version number in the image,
  		 * placing y is tricky to match baseline */
 diff --git a/source/blender/windowmanager/intern/wm_window.c b/source/blender/windowmanager/intern/wm_window.c
-index 79078b3..0dfe799 100644
+index 79078b3..61f0531 100644
 --- a/source/blender/windowmanager/intern/wm_window.c
 +++ b/source/blender/windowmanager/intern/wm_window.c
 @@ -45,6 +45,7 @@
@@ -2273,7 +2289,7 @@ index 79078b3..0dfe799 100644
  #include "BLI_utildefines.h"
  
  #include "BLT_translation.h"
-@@ -1355,12 +1356,52 @@ static int wm_window_timer(const bContext *C)
+@@ -1355,12 +1356,54 @@ static int wm_window_timer(const bContext *C)
  	return retval;
  }
  
@@ -2302,6 +2318,8 @@ index 79078b3..0dfe799 100644
 +
 +int wm_window_process_main_queue_events()
 +{
++	BLI_assert(BLI_thread_is_main());
++
 +	int count = 0;
 +
 +	MainThreadWork *work = NULL;

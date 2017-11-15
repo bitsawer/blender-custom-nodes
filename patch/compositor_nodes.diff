@@ -1,0 +1,2340 @@
+diff --git a/extern/CMakeLists.txt b/extern/CMakeLists.txt
+index 91919ad..fed9e0c 100644
+--- a/extern/CMakeLists.txt
++++ b/extern/CMakeLists.txt
+@@ -37,6 +37,7 @@ if(CMAKE_COMPILER_IS_GNUCC)
+ endif()
+ 
+ 
++add_subdirectory(gmic64)
+ add_subdirectory(rangetree)
+ add_subdirectory(wcwidth)
+ 
+diff --git a/extern/gmic64/CMakeLists.txt b/extern/gmic64/CMakeLists.txt
+new file mode 100644
+index 0000000..fe4dbb4
+--- /dev/null
++++ b/extern/gmic64/CMakeLists.txt
+@@ -0,0 +1,38 @@
++# ***** BEGIN GPL LICENSE BLOCK *****
++#
++# This program is free software; you can redistribute it and/or
++# modify it under the terms of the GNU General Public License
++# as published by the Free Software Foundation; either version 2
++# of the License, or (at your option) any later version.
++#
++# This program is distributed in the hope that it will be useful,
++# but WITHOUT ANY WARRANTY; without even the implied warranty of
++# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++# GNU General Public License for more details.
++#
++# You should have received a copy of the GNU General Public License
++# along with this program; if not, write to the Free Software Foundation,
++# Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
++#
++# The Original Code is Copyright (C) 2006, Blender Foundation
++# All rights reserved.
++#
++# The Original Code is: all of this file.
++#
++# Contributor(s):
++#
++# ***** END GPL LICENSE BLOCK *****
++
++set(INC
++	include
++)
++
++set(INC_SYS
++
++)
++
++set(SRC
++	include/gmic_libc.h
++)
++
++# blender_add_lib(extern_gmic64 "${SRC}" "${INC}" "${INC_SYS}")
+diff --git a/extern/gmic64/README b/extern/gmic64/README
+new file mode 100644
+index 0000000..daaddf7
+--- /dev/null
++++ b/extern/gmic64/README
+@@ -0,0 +1,114 @@
++--------------------------------------------------------------------------------
++--------------------------------------------------------------------------------
++
++                        _____   _   __  __ _____ _____
++                       / ____| | | |  \/  |_   _/ ____|
++                      | |  __  |_| | \  / | | || |
++                      | | |_ |     | |\/| | | || |
++                      | |__| |     | |  | |_| || |____
++                       \_____|     |_|  |_|_____\_____|
++
++                      GREYC's Magic for Image Computing
++
++                             ( http://gmic.eu )
++
++                                    2.0.5_pre
++
++--------------------------------------------------------------------------------
++
++# In a nutshell
++#---------------
++
++ G'MIC is a full-featured open-source framework for image processing, distributed
++ under the CeCILL license (GPL compatible).
++ It provides several different user interfaces to convert/manipulate/filter/
++ visualize generic image datasets, ranging from 1d scalar signals to 3d+t
++ sequences of multi-spectral volumetric images, thus including 2d color images.
++
++ These user interfaces are:
++
++ 1 - A command-line interface 'gmic', to use the G'MIC image processing features
++     from a shell. In this setting, G'MIC may be seen as a friendly companion to
++     the ImageMagick or GraphicsMagick software suites.
++
++ 2 - A small, portable, thread-safe and multi-threaded, C++ image processing
++     library 'libgmic', to be linked to third-party applications. Its simple API
++     allows programmers to add all G'MIC features in their own software without
++     much efforts (a C API is provided as well).
++
++ 3 - A plug-in 'gmic_gimp_qt' (or 'gmic_gimp_gtk'), to bring G'MIC capabilities
++     to the image retouching software GIMP. More than 450 filters are already
++     available, sorted by category (Artistic, Black & white, Colors, Contours,
++     Deformations, Degradations, Details, Film emulation, Frames, Layers,
++     Light & shadows, Patterns, Rendering, Repair, Sequences, etc.).
++
++ 4 - A web service G'MIC Online, to allow users applying image processing
++     algorithms on their images, directly from a web browser.
++
++ 5 - A Qt-based interface ZArt, for real-time processing of video streaming
++     coming from webcams or video files.
++
++ G'MIC is an open framework: the default script language can be extended with
++ custom G'MIC-written commands, defining thus new image available filters or
++ effects. By the way, it already contains a substantial set of pre-defined image
++ processing algorithms and pipelines (more than 1000).
++
++ G'MIC has been designed with portability in mind, and runs on different
++ platforms (Windows, Unix, MacOSX). It is distributed under the CeCILL license
++ (GPL-compatible). Since 2008, it has been developed in the Image Team of the
++ GREYC laboratory, in Caen/France, by permanent researchers working in the field
++ of image processing on a daily basis.
++
++# Project Managers and main developers
++#-------------------------------------
++
++  David Tschumperlé  ( http://tschumperle.users.greyc.fr/ )
++  Sébastien Fourey   ( https://foureys.users.greyc.fr/ )
++
++  A complete list of contributors is available on the project web page:
++
++                           http://gmic.eu
++
++# Institution
++#-------------
++
++ GREYC Image / CNRS UMR 6072 / FRANCE
++
++ Team web page: https://www.greyc.fr/image
++
++# License
++#---------
++
++ The C++ source code of G'MIC is distributed under the CECILL v.2.0 license
++ (file 'CeCILL.rtf'). This License is a Free-Software copyleft license,
++ compatible with the GPL (using those files in a distributed closed-source
++ project is then forbidden).
++
++ Purchasing proprietary licenses for using G'MIC in closed-source applications
++ is possible. Contact us if you are interested in getting one.
++
++ The CeCiLL v.2.0 license ( http://www.cecill.info/index.en.html ) have been
++ created under the supervision of the three biggest research institutions on
++ computer sciences in France:
++
++   - CNRS  ( http://www.cnrs.fr/ )
++   - CEA   ( http://www.cea.fr/ )
++   - INRIA ( http://www.inria.fr/ )
++
++# More information online
++#-------------------------
++
++  - Home page : http://gmic.eu
++  - G'MIC Online Service : https://gmicol.greyc.fr
++
++  - Google+ group: https://plus.google.com/117441237982283011318/posts
++  - Pixls.us forum: https://discuss.pixls.us/c/software/gmic
++  - Flickr forum: http://www.flickr.com/groups/gmic/discuss
++  - GimpChat forum: http://gimpchat.com/viewforum.php?f=28
++
++  - Tutorial page: http://gmic.eu/tutorial
++  - Reference documentation: http://gmic.eu/reference.shtml
++  - G'MIC wiki: https://github.com/dtschump/gmic-community/wiki
++
++--------------------------------------------------------------------------------
++--------------------------------------------------------------------------------
+\ No newline at end of file
+diff --git a/extern/gmic64/include/gmic_libc.h b/extern/gmic64/include/gmic_libc.h
+new file mode 100644
+index 0000000..f88f2d9
+--- /dev/null
++++ b/extern/gmic64/include/gmic_libc.h
+@@ -0,0 +1,109 @@
++/*
++ #
++ #  File        : gmic_libc.h
++ #                ( C++ header file )
++ #
++ #  Description : GREYC's Magic for Image Computing
++ #                ( http://gmic.eu )
++ #
++ #  Note        : Include this file in your C source code, if you
++ #                want to use the G'MIC interpreter in your own program,
++ #                through the C bridge to the G'MIC library.
++ #
++ #  Copyright   : Tobias Fleischer
++ #                ( https://plus.google.com/u/0/b/117441237982283011318/+TobiasFleischer )
++ #
++ #  License     : CeCILL-B v1.0
++ #                ( http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html )
++ #
++ #  This software is governed either by the CeCILL-B license
++ #  under French law and abiding by the rules of distribution of free software.
++ #  You can  use, modify and or redistribute the software under the terms of
++ #  the CeCILL-B licenses as circulated by CEA, CNRS and INRIA
++ #  at the following URL: "http://www.cecill.info".
++ #
++ #  As a counterpart to the access to the source code and  rights to copy,
++ #  modify and redistribute granted by the license, users are provided only
++ #  with a limited warranty  and the software's author,  the holder of the
++ #  economic rights,  and the successive licensors  have only  limited
++ #  liability.
++ #
++ #  In this respect, the user's attention is drawn to the risks associated
++ #  with loading,  using,  modifying and/or developing or reproducing the
++ #  software by the user in light of its specific status of free software,
++ #  that may mean  that it is complicated to manipulate,  and  that  also
++ #  therefore means  that it is reserved for developers  and  experienced
++ #  professionals having in-depth computer knowledge. Users are therefore
++ #  encouraged to load and test the software's suitability as regards their
++ #  requirements in conditions enabling the security of their systems and/or
++ #  data to be ensured and,  more generally, to use and operate it in the
++ #  same conditions as regards security.
++ #
++ #  The fact that you are presently reading this means that you have had
++ #  knowledge of the CeCILL-B licenses and that you accept its terms.
++ #
++*/
++
++#ifndef _GMIC_LIBC_H_
++#define _GMIC_LIBC_H_
++
++#if !defined(_MSC_VER) || (_MSC_VER >= 1900)
++#include <stdbool.h>
++#endif
++
++#if defined(WIN32) || defined(_WIN32)
++	#ifdef gmic_build
++		#define GMIC_DLLINTERFACE __declspec(dllexport)
++	#else // #ifdef gmic_build
++		#define GMIC_DLLINTERFACE __declspec(dllimport)
++	#endif // #ifdef gmic_build
++	#define GMIC_CALLCONV __stdcall
++#else // #if defined(WIN32) || defined(_WIN32)
++	#define GMIC_DLLINTERFACE
++	#define GMIC_CALLCONV
++#endif // #if defined(WIN32) || defined(_WIN32)
++
++#define MAX_IMAGE_NAME_LENGTH 255
++
++typedef enum {
++  E_FORMAT_FLOAT = 0,
++  E_FORMAT_BYTE = 1
++} EPixelFormat;
++
++typedef struct {
++  void* data;
++  unsigned int width;
++  unsigned int height;
++  unsigned int depth;
++  unsigned int spectrum;
++  bool is_interleaved;
++  EPixelFormat format;
++  char name[MAX_IMAGE_NAME_LENGTH + 1];
++} gmic_interface_image;
++
++typedef struct {
++  const char* custom_commands;
++  bool ignore_stdlib;
++  float* p_progress;
++  bool* p_is_abort;
++  bool interleave_output;
++  EPixelFormat output_format;
++  bool no_inplace_processing;
++  char* error_message_buffer;
++} gmic_interface_options;
++
++#ifdef __cplusplus
++extern "C"
++{
++#endif
++
++GMIC_DLLINTERFACE int GMIC_CALLCONV gmic_delete_external(float* p);
++GMIC_DLLINTERFACE int GMIC_CALLCONV gmic_call(const char* _cmd, unsigned int* _nofImages,
++                                              gmic_interface_image* _images, gmic_interface_options* _options);
++GMIC_DLLINTERFACE const char* GMIC_CALLCONV gmic_get_stdlib();
++
++#ifdef __cplusplus
++} //#ifdef  __cplusplus
++#endif
++
++#endif // #ifndef _GMIC_LIBC_H
+diff --git a/extern/gmic64/libcgmicstatic.lib b/extern/gmic64/libcgmicstatic.lib
+new file mode 100644
+index 0000000000000000000000000000000000000000..21873539fab69ab4eccd9a6a5ae5b4773687a4dd
+GIT binary patch
+literal 2312
+zcmcIm&2G~`5dM;ov{(p5g#)dM6hx$!OX8++Py|9Ql&VqFv`W(hC&#r-8Yv-FVkB<d
+za^jfBKz)H;qCNp2jvP7g7G>7ntv5e3HPDszXJ%)2X21Pr?MKheu66uE$)-ljnx+<t
+znyMC`j_Oq|=JI(ysw)6)1JQFJJ`W_efVoq@&MyOA9Z)|ojMDD@UbSXyzCL(WE$!F#
+zsz$4MWHs7NtLK_-(}H1C4$I|9JA529^v!D9hm{>;bECFF3!Ci|gY9HkW~+r@B+b}P
+z%W)mU`QSR;cP2L)S4#E`$2EGcO|Jd@Bsnx*T7XxA06UKoB5`1ggwr`-nUEV$B_I(&
+z6t@sZg10d`-QOc8oyS8)l0zIl0CjwkhqQ#uteeV?K{tzOYem7px-v?Fj7=A<WCbO;
+z*{uDvT<(&&c0Y!%&%V7`iqLHk@~mWR=jeSSec(&LHVr-rf%iI+FEdTsbj@^5Ox>r!
+zcdEa*B1XLqb;#`sTn%QIAb-M+>2;)rL<lT;_YW*g9&`owlEf2yVfIw+Lcy82u-mk{
+zonGgyn_8_tNtH{L9e;YXy+b04hgA@(*eFRY5s*fc&L|?Q(>|fl&&){V;zC|YOTc1{
+zLLi_6Ui8O8<DJ#_$8GY=h8E${Mhi4dzrq?`*zOd8*ZNHqbsGFj7R+R2NEYQZ@i5jE
+zyC3yfG^7~)*r&6|rg^zYELs<O#*WWI;5}mz+xMo}ah<z<NdEu$IET)`bydL4(DQTf
+zCwaIEy(@B1<3M>i%yLjJI&_hPd7)>y{zC}7XLdJ*@^uhSQyl-BrFrS?1Xv#1efHk5
+z+k8MZ_)1QB147?wL0oEz{SyS<R>{+%@HYPWnBq9}i>?J<2-)vr^0_4ZN?)icE|uR$
+C$>Ze!
+
+literal 0
+HcmV?d00001
+
+diff --git a/release/scripts/modules/pycompositor.py b/release/scripts/modules/pycompositor.py
+new file mode 100644
+index 0000000..048fd97
+--- /dev/null
++++ b/release/scripts/modules/pycompositor.py
+@@ -0,0 +1,36 @@
++
++import numpy as np
++from PIL import Image, ImageOps
++
++def mix_arrays(a, b, factor):
++    """Basic linear interpolation, factor from 0.0 to 1.0"""
++    return a + max(min(factor, 1.0), 0.0) * (b - a)
++
++def get_array_rgb(rgba):
++    """Return RGB values of an RGBA 3D-array."""
++    return rgba[...,0:3]
++
++def get_array_alpha(rgba):
++    """Return alpha values of an RGBA 3D-array."""
++    return rgba[...,3]
++
++def array_to_pil(rgba):
++    """Convert a 3D floating point numpy array into a PIL image. Returns the image and
++        a meta object that should be passed to pil_to_array() once the image is
++        converted back into an array."""
++    maxRgb = max(get_array_rgb(rgba).max(), 1.0)
++    maxAlpha = max(get_array_alpha(rgba).max(), 1.0)
++
++    #Normalize values to 8-bit range (0-255) that Pillow can handle
++    norm = rgba / maxRgb * 255.0 #RGB values
++    norm[...,3] = rgba[...,3] / maxAlpha * 255.0 #Alpha value
++    im = ImageOps.flip(Image.fromarray(np.uint8(norm), "RGBA"))
++    return im, (maxRgb, maxAlpha)
++
++def pil_to_array(im, meta):
++    """Convert a PIL image into a 3D floating point numpy array."""
++    #Restore values from 0-255 range to original floating point values
++    rgba = np.array(ImageOps.flip(im)) / 255.0
++    rgba[...,0:3] *= meta[0]
++    rgba[...,3] *= meta[1]
++    return rgba
+diff --git a/release/scripts/startup/nodeitems_builtins.py b/release/scripts/startup/nodeitems_builtins.py
+index 8a8032e..de42f97 100644
+--- a/release/scripts/startup/nodeitems_builtins.py
++++ b/release/scripts/startup/nodeitems_builtins.py
+@@ -367,6 +367,9 @@ compositor_node_categories = [
+         NodeItem("CompositorNodeInpaint"),
+         NodeItem("CompositorNodeDBlur"),
+         NodeItem("CompositorNodePixelate"),
++        NodeItem("CompositorNodeGmic"),
++        NodeItem("CompositorNodeGlsl"),
++        NodeItem("CompositorNodePython"),
+         NodeItem("CompositorNodeSunBeams"),
+         ]),
+     CompositorNodeCategory("CMP_OP_VECTOR", "Vector", items=[
+diff --git a/source/blender/blenkernel/BKE_node.h b/source/blender/blenkernel/BKE_node.h
+index c364d0e..063ff16 100644
+--- a/source/blender/blenkernel/BKE_node.h
++++ b/source/blender/blenkernel/BKE_node.h
+@@ -927,6 +927,9 @@ void            ntreeGPUMaterialNodes(struct bNodeTree *ntree, struct GPUMateria
+ #define CMP_NODE_TONEMAP	302
+ #define CMP_NODE_LENSDIST	303
+ #define CMP_NODE_SUNBEAMS	304
++#define CMP_NODE_GMIC       305 //TODO use 400-range for future compat?
++#define CMP_NODE_GLSL       306
++#define CMP_NODE_PYTHON     307
+ 
+ #define CMP_NODE_COLORCORRECTION 312
+ #define CMP_NODE_MASK_BOX       313
+diff --git a/source/blender/blenkernel/intern/node.c b/source/blender/blenkernel/intern/node.c
+index 2ca414c..22f11b0 100644
+--- a/source/blender/blenkernel/intern/node.c
++++ b/source/blender/blenkernel/intern/node.c
+@@ -3469,7 +3469,10 @@ static void registerCompositNodes(void)
+ 	register_node_type_cmp_despeckle();
+ 	register_node_type_cmp_defocus();
+ 	register_node_type_cmp_sunbeams();
+-	
++	register_node_type_cmp_gmic();
++	register_node_type_cmp_glsl();
++	register_node_type_cmp_python();
++
+ 	register_node_type_cmp_valtorgb();
+ 	register_node_type_cmp_rgbtobw();
+ 	register_node_type_cmp_setalpha();
+diff --git a/source/blender/compositor/CMakeLists.txt b/source/blender/compositor/CMakeLists.txt
+index 3e1dd83..1728ab7 100644
+--- a/source/blender/compositor/CMakeLists.txt
++++ b/source/blender/compositor/CMakeLists.txt
+@@ -31,6 +31,7 @@ set(INC
+ 	../blenkernel
+ 	../blenlib
+ 	../blentranslation
++	../gpu
+ 	../imbuf
+ 	../makesdna
+ 	../makesrna
+@@ -41,12 +42,15 @@ set(INC
+ 	../render/extern/include
+ 	../render/intern/include
+ 	../../../extern/clew/include
++	../../../extern/gmic64/include
+ 	../../../intern/guardedalloc
++	../../../intern/glew-mx
+ 	../../../intern/atomic
+ )
+ 
+ set(INC_SYS
+-
++	${GLEW_INCLUDE_PATH}
++	${PYTHON_INCLUDE_DIRS}
+ )
+ 
+ set(SRC
+@@ -276,6 +280,24 @@ set(SRC
+ 	operations/COM_VectorBlurOperation.cpp
+ 	operations/COM_VectorBlurOperation.h
+ 
++	# GMIC
++	nodes/COM_GmicNode.cpp
++	nodes/COM_GmicNode.h
++	operations/COM_GmicOperation.cpp
++	operations/COM_GmicOperation.h
++
++	# GLSL
++	nodes/COM_GlslNode.cpp
++	nodes/COM_GlslNode.h
++	operations/COM_GlslOperation.cpp
++	operations/COM_GlslOperation.h
++
++	# Python
++	nodes/COM_PythonNode.cpp
++	nodes/COM_PythonNode.h
++	operations/COM_PythonOperation.cpp
++	operations/COM_PythonOperation.h
++
+ 	nodes/COM_FilterNode.cpp
+ 	nodes/COM_FilterNode.h
+ 	nodes/COM_DespeckleNode.cpp
+diff --git a/source/blender/compositor/intern/COM_Converter.cpp b/source/blender/compositor/intern/COM_Converter.cpp
+index 9fa59be..00cc2a4 100644
+--- a/source/blender/compositor/intern/COM_Converter.cpp
++++ b/source/blender/compositor/intern/COM_Converter.cpp
+@@ -116,6 +116,9 @@ extern "C" {
+ #include "COM_ViewerNode.h"
+ #include "COM_ZCombineNode.h"
+ #include "COM_PixelateNode.h"
++#include "COM_GmicNode.h"
++#include "COM_GlslNode.h"
++#include "COM_PythonNode.h"
+ #include "COM_PlaneTrackDeformNode.h"
+ 
+ bool Converter::is_fast_node(bNode *b_node)
+@@ -403,6 +406,15 @@ Node *Converter::convert(bNode *b_node)
+ 		case CMP_NODE_CORNERPIN:
+ 			node = new CornerPinNode(b_node);
+ 			break;
++		case CMP_NODE_GMIC:
++			node = new GmicNode(b_node);
++			break;
++		case CMP_NODE_GLSL:
++			node = new GlslNode(b_node);
++			break;
++		case CMP_NODE_PYTHON:
++			node = new PythonNode(b_node);
++			break;
+ 		case CMP_NODE_SUNBEAMS:
+ 			node = new SunBeamsNode(b_node);
+ 			break;
+diff --git a/source/blender/compositor/intern/COM_ExecutionGroup.cpp b/source/blender/compositor/intern/COM_ExecutionGroup.cpp
+index 9a47c6b..4bf0ec8 100644
+--- a/source/blender/compositor/intern/COM_ExecutionGroup.cpp
++++ b/source/blender/compositor/intern/COM_ExecutionGroup.cpp
+@@ -492,6 +492,8 @@ bool ExecutionGroup::scheduleChunk(unsigned int chunkNumber)
+ 	return false;
+ }
+ 
++extern "C" int wm_window_process_main_queue_events();
++
+ bool ExecutionGroup::scheduleChunkWhenPossible(ExecutionSystem *graph, int xChunk, int yChunk)
+ {
+ 	if (xChunk < 0 || xChunk >= (int)this->m_numberOfXChunks) {
+@@ -542,6 +544,11 @@ bool ExecutionGroup::scheduleChunkWhenPossible(ExecutionSystem *graph, int xChun
+ 		scheduleChunk(chunkNumber);
+ 	}
+ 
++	if (BLI_thread_is_main()) {
++		// When Blender is run in background mode, we need to pump events manually here
++		wm_window_process_main_queue_events();
++	}
++
+ 	return false;
+ }
+ 
+diff --git a/source/blender/compositor/nodes/COM_GlslNode.cpp b/source/blender/compositor/nodes/COM_GlslNode.cpp
+new file mode 100644
+index 0000000..39418a7
+--- /dev/null
++++ b/source/blender/compositor/nodes/COM_GlslNode.cpp
+@@ -0,0 +1,62 @@
++
++#include "COM_GlslNode.h"
++
++#include "COM_GlslOperation.h"
++#include "COM_GammaOperation.h"
++#include "COM_ExecutionSystem.h"
++#include "BKE_scene.h"
++#include "BKE_global.h"
++#include "BKE_main.h"
++#include "BLI_path_util.h"
++
++GlslNode::GlslNode(bNode *editorNode) : Node(editorNode)
++{
++	/* pass */
++}
++
++void GlslNode::convertToOperations(NodeConverter &converter, const CompositorContext &context) const
++{
++	const NodeGlsl* rna = (NodeGlsl*)this->getbNode()->storage;
++	const Scene* scene = context.getScene();
++
++	char absolute[FILE_MAX] = { 0 };
++	strcpy(absolute, rna->filepath);
++	BLI_path_abs(absolute, G.main->name);
++
++	GlslOperationParams params;
++	params.absolute = absolute;
++	params.frameCurrent = BKE_scene_frame_get(scene);
++	params.frameTime = 0; //Set later
++	params.frameDelta = 1.0f / scene->r.frs_sec; //Assume steady progress
++
++	GlslOperation *operation = new GlslOperation();
++	operation->setParams(params);
++	operation->setData(rna);
++	converter.addOperation(operation);
++
++	for (int i = 0; i < GLSL_CHANNELS; i++) {
++		bool linked = getInputSocket(i)->isLinked();
++		operation->setChannelLinked(i, linked);
++		converter.mapInputSocket(getInputSocket(i), operation->getInputSocket(i));
++	}
++	for (int i = GLSL_CHANNELS; i < GLSL_CHANNELS + GLSL_VALUE_SOCKETS; i++) {
++		converter.mapInputSocket(getInputSocket(i), operation->getInputSocket(i));
++	}
++
++	//Force node resolution to render settings
++	int w = (scene->r.size * scene->r.xsch) / 100;
++	int h = (scene->r.size * scene->r.ysch) / 100;
++	unsigned int size[2] = { w, h };
++	operation->setResolution(size);
++
++	if (rna->flag & CMP_NODE_GLSL_GAMMA) {
++		GammaOperation *gamma = new GammaOperation();
++		converter.addOperation(gamma);
++		converter.addLink(operation->getOutputSocket(0), gamma->getInputSocket(0));
++		converter.addInputValue(gamma->getInputSocket(1), 2.2f); //For OpenGL sRGB...
++		converter.mapOutputSocket(this->getOutputSocket(0), gamma->getOutputSocket(0));
++	}
++	else {
++		converter.mapOutputSocket(this->getOutputSocket(0), operation->getOutputSocket(0));
++	}
++}
+diff --git a/source/blender/compositor/nodes/COM_GlslNode.h b/source/blender/compositor/nodes/COM_GlslNode.h
+new file mode 100644
+index 0000000..bba75cf
+--- /dev/null
++++ b/source/blender/compositor/nodes/COM_GlslNode.h
+@@ -0,0 +1,13 @@
++
++#ifndef _COM_GlslNode_h_
++#define _COM_GlslNode_h_
++
++#include "COM_Node.h"
++
++class GlslNode : public Node {
++public:
++	GlslNode(bNode *editorNode);
++	void convertToOperations(NodeConverter &converter, const CompositorContext &context) const;
++};
++
++#endif
+diff --git a/source/blender/compositor/nodes/COM_GmicNode.cpp b/source/blender/compositor/nodes/COM_GmicNode.cpp
+new file mode 100644
+index 0000000..02c998e
+--- /dev/null
++++ b/source/blender/compositor/nodes/COM_GmicNode.cpp
+@@ -0,0 +1,25 @@
++
++#include "COM_GmicNode.h"
++
++#include "COM_GmicOperation.h"
++#include "COM_ExecutionSystem.h"
++
++GmicNode::GmicNode(bNode *editorNode) : Node(editorNode)
++{
++	/* pass */
++}
++
++void GmicNode::convertToOperations(NodeConverter &converter, const CompositorContext &context) const
++{
++	GmicOperation *operation = new GmicOperation();
++
++	const NodeGmic* rna = (NodeGmic*)this->getbNode()->storage;
++	operation->setData(rna);
++	
++	converter.addOperation(operation);
++
++	for (int i = 0; i < (1 + 5); i++) {
++		converter.mapInputSocket(this->getInputSocket(i), operation->getInputSocket(i));
++	}
++	converter.mapOutputSocket(this->getOutputSocket(0), operation->getOutputSocket(0));
++}
+diff --git a/source/blender/compositor/nodes/COM_GmicNode.h b/source/blender/compositor/nodes/COM_GmicNode.h
+new file mode 100644
+index 0000000..658bace
+--- /dev/null
++++ b/source/blender/compositor/nodes/COM_GmicNode.h
+@@ -0,0 +1,13 @@
++
++#ifndef _COM_GeglNode_h_
++#define _COM_GeglNode_h_
++
++#include "COM_Node.h"
++
++class GmicNode : public Node {
++public:
++	GmicNode(bNode *editorNode);
++	void convertToOperations(NodeConverter &converter, const CompositorContext &context) const;
++};
++
++#endif
+diff --git a/source/blender/compositor/nodes/COM_PythonNode.cpp b/source/blender/compositor/nodes/COM_PythonNode.cpp
+new file mode 100644
+index 0000000..743ed5c
+--- /dev/null
++++ b/source/blender/compositor/nodes/COM_PythonNode.cpp
+@@ -0,0 +1,31 @@
++
++#include "COM_PythonNode.h"
++
++#include "COM_PythonOperation.h"
++#include "BKE_global.h"
++#include "BKE_main.h"
++#include "BLI_path_util.h"
++
++PythonNode::PythonNode(bNode *editorNode) : Node(editorNode)
++{
++	/* pass */
++}
++
++void PythonNode::convertToOperations(NodeConverter &converter, const CompositorContext &context) const
++{
++	const NodePython* rna = (NodePython*)getbNode()->storage;
++
++	char absolute[FILE_MAX] = { 0 };
++	strcpy(absolute, rna->filepath);
++	BLI_path_abs(absolute, G.main->name);
++
++	PythonOperation *operation = new PythonOperation();
++	operation->setData(rna);
++	operation->setPath(absolute);
++
++	converter.addOperation(operation);
++	for (int i = 0; i < COM_PYTHON_INPUT_IMAGES + COM_PYTHON_INPUT_VALUES; i++) {
++		converter.mapInputSocket(getInputSocket(i), operation->getInputSocket(i));
++	}
++	converter.mapOutputSocket(getOutputSocket(0), operation->getOutputSocket(0));
++}
+diff --git a/source/blender/compositor/nodes/COM_PythonNode.h b/source/blender/compositor/nodes/COM_PythonNode.h
+new file mode 100644
+index 0000000..59316af
+--- /dev/null
++++ b/source/blender/compositor/nodes/COM_PythonNode.h
+@@ -0,0 +1,13 @@
++
++#ifndef _COM_PythonNode_h_
++#define _COM_PythonNode_h_
++
++#include "COM_Node.h"
++
++class PythonNode : public Node {
++public:
++	PythonNode(bNode *editorNode);
++	void convertToOperations(NodeConverter &converter, const CompositorContext &context) const;
++};
++
++#endif
+diff --git a/source/blender/compositor/operations/COM_GlslOperation.cpp b/source/blender/compositor/operations/COM_GlslOperation.cpp
+new file mode 100644
+index 0000000..5f7eb8c
+--- /dev/null
++++ b/source/blender/compositor/operations/COM_GlslOperation.cpp
+@@ -0,0 +1,362 @@
++
++#include "BKE_global.h"
++#include "WM_api.h"
++#include "GPU_framebuffer.h"
++#include "GPU_texture.h"
++#include "GPU_shader.h"
++#include "GPU_glew.h"
++
++#include <fstream>
++
++#include "COM_GlslOperation.h"
++
++GlslOperation::GlslOperation() : SingleThreadedOperation()
++{
++	for (int i = 0; i < GLSL_CHANNELS; i++) {
++		this->addInputSocket(COM_DT_COLOR);
++		this->m_channelLinked[i] = false;
++	}
++	for (int i = 0; i < GLSL_VALUE_SOCKETS; i++) {
++		this->addInputSocket(COM_DT_VALUE);
++	}
++	this->addOutputSocket(COM_DT_COLOR);
++	this->setResolutionInputSocketIndex(0);
++	this->m_data = NULL;
++}
++
++void GlslOperation::initExecution()
++{
++	SingleThreadedOperation::initExecution();
++}
++
++void GlslOperation::deinitExecution()
++{
++	SingleThreadedOperation::deinitExecution();
++}
++
++struct GlslChannelInput {
++	float pixel[4];
++	float* rgba;
++	int width;
++	int height;
++};
++
++struct ThreadResult {
++	ThreadCondition condition;
++	ThreadMutex *mutex;
++	const GlslOperationParams *params;
++	GlslChannelInput inputs[GLSL_CHANNELS];
++	std::string script;
++	int width;
++	int height;
++	float *output;
++};
++
++const char* GLSL_NODE_UNIFORMS =
++"uniform vec3		iResolution;\n"
++"uniform float		iTime;\n"
++"uniform float		iTimeDelta;\n"
++"uniform float		iFrame;\n"
++"uniform float		iChannelTime[4];\n"
++"uniform vec4		iMouse;\n"
++"uniform vec4		iDate;\n"
++"uniform float		iSampleRate;\n"
++"uniform vec3		iChannelResolution[4];\n"
++"uniform sampler2D  iChannel0;\n"
++"uniform sampler2D  iChannel1;\n"
++"uniform sampler2D  iChannel2;\n"
++"uniform sampler2D  iChannel3;\n"
++"uniform vec4		userInput;\n" //Our addition
++;
++
++const char *GLSL_DEFINES =
++"#define input0 userInput.x\n"
++"#define input1 userInput.y\n"
++"#define input2 userInput.z\n"
++"#define input3 userInput.w\n"
++;
++
++const char *GLSL_NODE_VS =
++"in vec4 position;\n"
++"out vec2 varTex;\n"
++
++"void main() {\n"
++"	gl_Position.xyz = vec3(position.x, position.y, 0.0);\n"
++"	gl_Position.w = 1.0;\n"
++"	varTex = position.zw;\n"
++"}"
++;
++
++const char *GLSL_NODE_PS =
++"in vec2 varTex;\n"
++"out vec4 glFragColor;\n"
++
++"void main() {\n"
++"	mainImage(glFragColor, gl_FragCoord.xy);\n"
++"}\n"
++;
++
++const float FULLSCREEN_QUAD[] = {
++	-1, -1, 0.0, 0.0, //Bottom left
++	1, -1, 1.0, 0.0, //Bottom right
++	- 1, 1, 0.0, 1.0, //Top left
++	1, 1, 1.0, 1.0, //Top right
++};
++
++GPUShader *createShader(ThreadResult *data)
++{
++	if (data->script.empty()) {
++		return NULL;
++	}
++
++	std::string fragment;
++	fragment += GLSL_NODE_UNIFORMS;
++	fragment += data->script;
++	fragment += "\n";
++	fragment += GLSL_NODE_PS;
++
++	return GPU_shader_create(GLSL_NODE_VS, fragment.c_str(), NULL, NULL, GLSL_DEFINES, 0, 0, 0);
++}
++
++void setFloat(GPUShader *shader, const char *name, const float *value, int length)
++{
++	int location = GPU_shader_get_uniform(shader, name);
++	if (location != -1) {
++		GPU_shader_uniform_vector(shader, location, length, 1, value);
++	}
++}
++
++void setUniforms(GPUShader *shader, ThreadResult *data)
++{
++	float value[4] = { 0 };
++
++	value[0] = data->width;
++	value[1] = data->height;
++	value[3] = 1;
++	setFloat(shader, "iResolution", value, 3);
++
++	value[0] = data->params->frameTime;
++	setFloat(shader, "iTime", value, 1);
++
++	value[0] = data->params->frameDelta;
++	setFloat(shader, "iTimeDelta", value, 1);
++
++	value[0] = data->params->frameCurrent;
++	setFloat(shader, "iFrame", value, 1);
++
++	float resolutions[3 * GLSL_CHANNELS];
++	for (int i = 0; i < GLSL_CHANNELS; i++) {
++		int index = i * 3;
++		resolutions[index] = data->inputs[i].width;
++		resolutions[index + 1] = data->inputs[i].height;
++		resolutions[index + 2] = 1;
++	}
++	GPU_shader_uniform_vector(shader, GPU_shader_get_uniform(shader, "iChannelResolution"), 3, GLSL_CHANNELS, resolutions);
++
++	setFloat(shader, "userInput", data->params->input0, 4);
++}
++
++void drawImage(GPUShader *shader, ThreadResult *data, std::vector<GPUTexture*> *textures)
++{
++	GPU_shader_bind(shader);
++	
++	setUniforms(shader, data);
++
++	for (int i = 0; i < textures->size(); i++) {
++		std::string name = "iChannel" + std::to_string(i);
++		int loc = GPU_shader_get_uniform(shader, name.c_str());
++		if (textures->at(i) && loc != -1) {
++			GPU_texture_bind(textures->at(i), i);
++			GPU_shader_uniform_texture(shader, loc, textures->at(i));
++		}
++	}
++
++	int index = GPU_shader_get_attribute(shader, "position");
++	glVertexAttribPointer(index, 4, GL_FLOAT, GL_FALSE, 0, FULLSCREEN_QUAD);
++	glEnableVertexAttribArray(index);
++
++	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
++
++	glDisableVertexAttribArray(index);
++
++	for (int i = 0; i < textures->size(); i++) {
++		if (textures->at(i)) {
++			GPU_texture_unbind(textures->at(i));
++		}
++	}
++	GPU_shader_unbind();
++}
++
++std::vector<GPUTexture*> createTextures(ThreadResult *data)
++{
++	std::vector<GPUTexture*> results;
++	char error[256];
++
++	for (int i = 0; i < GLSL_CHANNELS; i++) {
++		GlslChannelInput *input = &data->inputs[i];
++		GPUTexture *tex = NULL;
++		if (input->rgba) {
++			tex = GPU_texture_create_2D(input->width, input->height, input->rgba, GPU_HDR_NONE, error);
++			if (tex) {
++				GPU_texture_bind(tex, 0);
++				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
++				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
++				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
++				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
++				GPU_texture_unbind(tex);
++			}
++		}
++		results.push_back(tex);
++	}
++	return results;
++}
++
++void freeTextures(std::vector<GPUTexture*> *textures)
++{
++	for (int i = 0; i < textures->size(); i++) {
++		if (textures->at(i)) {
++			GPU_texture_free(textures->at(i));
++		}
++	}
++	textures->clear();
++}
++
++void glslMainThreadCallback(void* userData)
++{
++	BLI_assert(BLI_thread_is_main());
++
++	ThreadResult* data = (ThreadResult*)userData;
++
++	std::vector<GPUTexture*> textures = createTextures(data);
++
++	GPUShader *shader = createShader(data);
++	if (shader) {
++		char error[256];
++		GPUOffScreen *offscreen = GPU_offscreen_create(data->width, data->height, 0, error);
++
++		bool resized = false;
++		if (offscreen) {
++			if (GPU_offscreen_width(offscreen) != data->width || GPU_offscreen_height(offscreen) != data->height) {
++				printf("Invalid offscreen size!\n");
++				resized = true;
++			}
++		}
++		else {
++			printf("Can't create an offscreen buffer: %s, %ix%i\n", error, data->width, data->height);
++		}
++
++		if (offscreen) {
++			GPU_offscreen_bind(offscreen, true);
++
++			if (!resized) {
++				drawImage(shader, data, &textures);
++
++				GPU_offscreen_read_pixels(offscreen, GL_FLOAT, data->output);
++			}
++			GPU_offscreen_unbind(offscreen, true);
++
++			GPU_offscreen_free(offscreen);
++		}
++		GPU_shader_free(shader);
++	}
++
++	freeTextures(&textures);
++
++	BLI_condition_notify_all(&data->condition);
++}
++
++std::string readScriptContent(const std::string& path)
++{
++	std::ifstream input(path);
++	std::stringstream buffer;
++	buffer << input.rdbuf();
++	return buffer.str();
++}
++
++MemoryBuffer *GlslOperation::createMemoryBuffer(rcti *source)
++{
++	rcti rect;
++	rect.xmin = 0;
++	rect.ymin = 0;
++	rect.xmax = source->xmax;
++	rect.ymax = source->ymax;
++	MemoryBuffer *result = new MemoryBuffer(COM_DT_COLOR, &rect);
++
++	const float invalid[] = { 1, 0, 0, 1 };
++	for (int y = 0; y < rect.ymax; y++) {
++		for (int x = 0; x < rect.xmax; x++) {
++			result->writePixel(x, y, invalid);
++		}
++	}
++
++	if (G.background) {
++		printf("GLSL node not supported in background mode\n");
++		return result;
++	}
++
++	ThreadResult threadResult;
++	threadResult.condition = NULL;
++	threadResult.mutex = BLI_mutex_alloc();
++	BLI_condition_init(&threadResult.condition);
++
++	memset(threadResult.inputs, 0, sizeof(threadResult.inputs));
++	for (int i = 0; i < GLSL_CHANNELS; i++) {
++		GlslChannelInput *input = &threadResult.inputs[i];
++		SocketReader *reader = getInputSocketReader(i);
++
++		if (m_channelLinked[i]) {
++			MemoryBuffer *tile = (MemoryBuffer*)reader->initializeTileData(NULL);
++			if (tile) {
++				input->width = tile->getWidth();
++				input->height = tile->getHeight();
++				input->rgba = tile->getBuffer();
++			}
++		}
++		else {
++			//Save memory by using a single color 1x1 texture
++			input->width = 1;
++			input->height = 1;
++			input->rgba = input->pixel;
++			reader->readSampled(input->rgba, 0, 0, COM_PS_NEAREST);
++		}
++	}
++
++	float value[4] = {};
++	getInputSocketReader(GLSL_CHANNELS)->readSampled(value, 0, 0, COM_PS_NEAREST);
++	m_params.frameTime = value[0];
++
++	for (int i = 0; i < 4; i++) {
++		getInputSocketReader(GLSL_CHANNELS + 1 + i)->readSampled(value, 0, 0, COM_PS_NEAREST);
++		m_params.input0[i] = value[0];
++	}
++
++	threadResult.params = &m_params;
++	threadResult.width = rect.xmax;
++	threadResult.height = rect.ymax;
++	threadResult.output = result->getBuffer();
++	threadResult.script = readScriptContent(m_params.absolute);
++
++	// Run OpenGL operations in the main thread and wait until they are ready
++	WM_run_in_main_thread(glslMainThreadCallback, &threadResult);
++	BLI_condition_wait(&threadResult.condition, threadResult.mutex);
++
++	BLI_condition_end(&threadResult.condition);
++	BLI_mutex_free(threadResult.mutex);
++
++	return result;
++}
++
++bool GlslOperation::determineDependingAreaOfInterest(rcti * /*input*/, ReadBufferOperation *readOperation, rcti *output)
++{
++	if (isCached()) {
++		return false;
++	}
++	else {
++		rcti newInput;
++		newInput.xmin = 0;
++		newInput.ymin = 0;
++		newInput.xmax = this->getWidth();
++		newInput.ymax = this->getHeight();
++		return NodeOperation::determineDependingAreaOfInterest(&newInput, readOperation, output);
++	}
++}
+diff --git a/source/blender/compositor/operations/COM_GlslOperation.h b/source/blender/compositor/operations/COM_GlslOperation.h
+new file mode 100644
+index 0000000..9f8cb45
+--- /dev/null
++++ b/source/blender/compositor/operations/COM_GlslOperation.h
+@@ -0,0 +1,42 @@
++
++#ifndef _COM_GlslOperation_h_
++#define _COM_GlslOperation_h_
++
++#include <string>
++
++#include "COM_NodeOperation.h"
++#include "COM_SingleThreadedOperation.h"
++
++#define GLSL_CHANNELS 4
++#define GLSL_VALUE_SOCKETS 5
++
++struct GlslOperationParams {
++	std::string absolute;
++	float input0[4];
++	float frameCurrent;
++	float frameTime;
++	float frameDelta;
++};
++
++class GlslOperation : public SingleThreadedOperation {
++private:
++	GlslOperationParams m_params;
++	const NodeGlsl *m_data;
++	bool m_channelLinked[GLSL_CHANNELS];
++public:
++	GlslOperation();
++
++	void initExecution();
++	void deinitExecution();
++	bool determineDependingAreaOfInterest(rcti *input, ReadBufferOperation *readOperation, rcti *output);
++
++	void setParams(const GlslOperationParams& params) { this->m_params = params; }
++	void setData(const NodeGlsl *data) { this->m_data = data; }
++	void setChannelLinked(int index, bool linked) { this->m_channelLinked[index] = linked; }
++
++protected:
++
++	MemoryBuffer *createMemoryBuffer(rcti *rect);
++};
++
++#endif
+diff --git a/source/blender/compositor/operations/COM_GmicOperation.cpp b/source/blender/compositor/operations/COM_GmicOperation.cpp
+new file mode 100644
+index 0000000..813fcdc
+--- /dev/null
++++ b/source/blender/compositor/operations/COM_GmicOperation.cpp
+@@ -0,0 +1,343 @@
++
++#include <string>
++#include <fstream>
++#include <vector>
++#include "gmic_libc.h"
++#include "WM_api.h"
++
++extern "C" {
++#include "BKE_appdir.h"
++}
++
++#include "COM_GmicOperation.h"
++
++GmicOperation::GmicOperation() : SingleThreadedOperation()
++{
++	this->addInputSocket(COM_DT_COLOR);
++	for (int i = 0; i < 5; i++) {
++		this->addInputSocket(COM_DT_VALUE);
++	}
++
++	this->addOutputSocket(COM_DT_COLOR);
++	this->setResolutionInputSocketIndex(0);
++	this->m_inputProgram = NULL;
++	this->m_data = NULL;
++}
++
++void GmicOperation::initExecution()
++{
++	SingleThreadedOperation::initExecution();
++	this->m_inputProgram = getInputSocketReader(0);
++}
++
++void GmicOperation::deinitExecution()
++{
++	this->m_inputProgram = NULL;
++	SingleThreadedOperation::deinitExecution();
++}
++
++std::string readGimpCommands()
++{
++	std::string path = std::string(BKE_appdir_program_dir()) + "gimp.gmic";
++	printf("Trying to read GIMP commands from file: %s...\n", path.c_str());
++
++	std::ifstream filters(path);
++	std::stringstream buffer;
++	buffer << filters.rdbuf();
++	return buffer.str();
++}
++
++const std::string& getGimpCommands()
++{
++	static std::string commands = readGimpCommands(); //Never freed
++	return commands;
++}
++
++struct GmicFilterParam {
++	std::string key;
++	std::string options;
++};
++
++struct GmicFilterHelp {
++	std::string name;
++	std::string command;
++	std::vector<GmicFilterParam*> parameters;
++};
++
++std::vector<GmicFilterHelp*> readGmicHelp()
++{
++	std::vector<GmicFilterHelp*> results;
++
++	const std::string& commands = getGimpCommands();
++
++	std::stringstream ss(commands);
++	std::string to;
++
++	const std::string tag = "#@gimp ";
++	GmicFilterHelp* current = NULL;
++	int mergeCount = 0;
++
++	while (std::getline(ss, to, '\n')) {
++		bool skipFirst = false;
++		if (to.find(tag, 0) == 0 && to.find(" : ") != std::string::npos && current == NULL) {
++			delete current;
++			current = new GmicFilterHelp();
++			mergeCount = 0;
++
++			size_t start = to.find(" : ") + 3;
++			size_t end = to.find(",", start);
++			current->name = to.substr(tag.size(), start - tag.size() - 3);
++			current->command = to.substr(start, end - start);
++			results.push_back(current);
++			skipFirst = true;
++		}
++		else if (to.find("#") != 0) {
++			current = NULL;
++		}
++
++		if (current && !skipFirst) {
++			size_t start = to.find(" : ");
++			if (start != std::string::npos) {
++				std::string body = to.substr(start + 3);
++				std::string key = body.substr(0, body.find(" = "));
++				std::string options = body.substr(body.find(" = ") + 3);
++
++				if (mergeCount > 0) {
++					current->parameters[current->parameters.size() - 1]->options += body;
++				}
++				else {
++					GmicFilterParam *param = new GmicFilterParam();
++					param->key = key;
++					param->options = options;
++					current->parameters.push_back(param);
++				}
++
++				mergeCount += std::count(body.begin(), body.end(), '{');
++				mergeCount -= std::count(body.begin(), body.end(), '}');
++			}
++		}
++	}
++	printf("Found help for %i G'MIC filters\n", (int)results.size());
++
++	return results;
++}
++
++const std::vector<GmicFilterHelp*>& getGmicHelp()
++{
++	static std::vector<GmicFilterHelp*> help = readGmicHelp(); //Never freed
++	return help;
++}
++
++std::vector<std::string> findCommands(const char *command)
++{
++	const size_t len = strlen(command);
++	const size_t minCommandLen = 1;
++
++	std::vector<std::string> results;
++	std::string current;
++
++	bool inCommand = false;
++	for (int i = 0; i < len; i++) {
++		char tok = command[i];
++
++		if (tok == '-') {
++			inCommand = true;
++		}
++		else if (isspace(tok)) {
++			inCommand = false;
++			if (current.size() > minCommandLen) {
++				results.push_back(current);
++			}
++			current = "";
++		}
++
++		if (inCommand && tok != '-') {
++			current += tok;
++		}
++	}
++	if (current.size() > minCommandLen) {
++		results.push_back(current);
++	}
++
++	//Remove duplicates
++	std::sort(results.begin(), results.end());
++	results.erase(std::unique(results.begin(), results.end()), results.end());
++
++	return results;
++}
++
++extern "C" char** explainGmicCommands(const char *command, int *resultCount)
++{
++	std::vector<std::string> commands = findCommands(command);
++	const std::vector<GmicFilterHelp*>& help = getGmicHelp();
++	std::vector<GmicFilterHelp*> found;
++
++	for (size_t i = 0; i < commands.size(); i++) {
++		for (size_t x = 0; x < help.size(); x++) {
++			if (commands[i] == help[x]->command) {
++				found.push_back(help[x]);
++				break;
++			}
++		}
++	}
++
++	std::vector<std::string> results;
++	for (size_t i = 0; i < found.size(); i++) {
++		GmicFilterHelp *help = found[i];
++		results.push_back(help->name);
++		results.push_back("");
++
++		for (size_t x = 0; x < help->parameters.size(); x++) {
++			GmicFilterParam *param = help->parameters[x];
++			if (param->key != "Sep") {
++				results.push_back(param->key);
++				results.push_back(param->options);
++			}
++		}
++	}
++
++	const int count = results.size();
++	*resultCount = count;
++	char** texts = new char*[count];
++
++	for (size_t i = 0; i < count; i++) {
++		std::string& entry = results[i];
++		char *data = new char[entry.size() + 1];
++		std::copy(entry.begin(), entry.end(), data);
++		data[entry.size()] = '\0';
++		texts[i] = data;
++	}
++	return texts;
++}
++
++extern "C" void freeGmicExplainCommands(char **results, int resultCount)
++{
++	for (int i = 0; i < resultCount; i++) {
++		delete[] results[i];
++	}
++	delete[] results;
++}
++
++MemoryBuffer *GmicOperation::createMemoryBuffer(rcti *source)
++{
++	MemoryBuffer *tile = (MemoryBuffer*)this->m_inputProgram->initializeTileData(source);
++
++	rcti rect;
++	rect.xmin = 0;
++	rect.ymin = 0;
++	rect.xmax = source->xmax;
++	rect.ymax = source->ymax;
++	MemoryBuffer *result = new MemoryBuffer(COM_DT_COLOR, &rect);
++
++	gmic_interface_image images[10]; //Hardcoded amount in C-API, why...?
++	memset(&images, 0, sizeof(images));
++	strcpy(images[0].name, "image0");
++	images[0].width = rect.xmax;
++	images[0].height = rect.ymax;
++	images[0].spectrum = 4;
++	images[0].depth = 1;
++	images[0].is_interleaved = true;
++	images[0].format = E_FORMAT_FLOAT;
++
++	const size_t image_size = images[0].width*images[0].height*images[0].spectrum*images[0].depth * sizeof(float);
++	float *data = (float*)malloc(image_size);
++	memcpy(data, tile->getBuffer(), image_size);
++	images[0].data = data;
++
++	gmic_interface_options options;
++	memset(&options, 0, sizeof(options));
++	options.ignore_stdlib = false;
++	bool abort = false;
++	float progress = 0.0f;
++	options.p_is_abort = &abort;
++	options.p_progress = &progress;
++	options.interleave_output = true;
++	options.no_inplace_processing = true;
++	options.output_format = E_FORMAT_FLOAT;
++
++	const std::string& gimpCommands = getGimpCommands();
++	if (gimpCommands.size() > 0) {
++		printf("Found GIMP commands!\n");
++		options.custom_commands = gimpCommands.c_str();
++	}
++	else {
++		printf("No GIMP commands found\n");
++	}
++
++	std::string interpolation = "1";
++	std::string command;
++
++	// Add argument variables
++	for (int i = 0; i < 5; i++) {
++		float value[4];
++		this->getInputSocketReader(i + 1)->readSampled(&value[0], 0, 0, COM_PS_NEAREST);
++		command += "arg" + std::to_string(i + 1) + "=" + std::to_string(value[0]) + " ";
++	}
++
++	// Downscale
++	int scale = std::min(std::max((int)(this->m_data->quality * 100), 10), 100);
++	command += "--resize2dx " + std::to_string(scale) + "%," + interpolation + " ";
++	command += "-remove[0] ";
++
++	const bool normalize = this->m_data->flag & CMP_NODE_GMIC_NORMALIZE;
++	if (normalize) {
++		command += " -n 0,255 -rgb2srgb -mirror[-1] y ";
++	}
++
++	// Add the real user command
++	command.append(m_data->command);
++
++	if (normalize) {
++		command += " -mirror[-1] y -srgb2rgb -n 0,1 ";
++	}
++	// Upscale last image to correct size and format
++	command += " --resize[-1] " + std::to_string(rect.xmax) + "," + std::to_string(rect.ymax) + ",1,4," + interpolation + " ";
++
++	unsigned int image_count = 1; 
++	int error = gmic_call(command.c_str(), &image_count, &images[0], &options);
++	printf("Full GMIC command: '%s', error code: %i\n", command.c_str(), error);
++
++	for (int i = 0; i < image_count; ++i) {
++		printf("Image %u: %ux%u Depth: %u Spectrum: %u\n", i, images[i].width, images[i].height, images[i].depth, images[i].spectrum);
++	}
++
++	if (error == 0) {
++		// All ok, copy the final image into the result buffer
++		gmic_interface_image *final_image = &images[image_count - 1];
++		memcpy(result->getBuffer(), final_image->data, image_size);
++	}
++	else {
++		// An error occurred, fill the result buffer with a solid color
++		float invalid[4] = { 1.0f, 0.0f, 0.0f, 1.0f };
++		for (int y = 0; y < rect.ymax; y++) {
++			for (int x = 0; x < rect.xmax; x++) {
++				result->writePixel(x, y, invalid);
++			}
++		}
++	}
++
++	// Free all temporary buffers
++	for (int i = 0; i < image_count; ++i) {
++		if (images[i].data != data) {
++			gmic_delete_external((float*)images[i].data);
++		}
++	}
++	free(data);
++
++	return result;
++}
++
++bool GmicOperation::determineDependingAreaOfInterest(rcti * /*input*/, ReadBufferOperation *readOperation, rcti *output)
++{
++	if (isCached()) {
++		return false;
++	}
++	else {
++		rcti newInput;
++		newInput.xmin = 0;
++		newInput.ymin = 0;
++		newInput.xmax = this->getWidth();
++		newInput.ymax = this->getHeight();
++		return NodeOperation::determineDependingAreaOfInterest(&newInput, readOperation, output);
++	}
++}
+diff --git a/source/blender/compositor/operations/COM_GmicOperation.h b/source/blender/compositor/operations/COM_GmicOperation.h
+new file mode 100644
+index 0000000..234d745
+--- /dev/null
++++ b/source/blender/compositor/operations/COM_GmicOperation.h
+@@ -0,0 +1,26 @@
++
++#ifndef _COM_GeglOperation_h_
++#define _COM_GeglOperation_h_
++
++#include "COM_NodeOperation.h"
++#include "COM_SingleThreadedOperation.h"
++
++class GmicOperation : public SingleThreadedOperation {
++private:
++	SocketReader *m_inputProgram;
++	const NodeGmic *m_data;
++public:
++	GmicOperation();
++
++	void initExecution();
++	void deinitExecution();
++	bool determineDependingAreaOfInterest(rcti *input, ReadBufferOperation *readOperation, rcti *output);
++
++	void setData(const NodeGmic *data) { this->m_data = data; }
++
++protected:
++
++	MemoryBuffer *createMemoryBuffer(rcti *rect);
++};
++
++#endif
+diff --git a/source/blender/compositor/operations/COM_PythonOperation.cpp b/source/blender/compositor/operations/COM_PythonOperation.cpp
+new file mode 100644
+index 0000000..1d7f6d1
+--- /dev/null
++++ b/source/blender/compositor/operations/COM_PythonOperation.cpp
+@@ -0,0 +1,303 @@
++
++#include <string>
++#include <fstream>
++#include <vector>
++
++#include "WM_api.h"
++#include "Python.h"
++#include "numpy\arrayobject.h"
++
++#include "COM_PythonOperation.h"
++
++void fatal(const char *message)
++{
++	if (PyErr_Occurred()) {
++		PyErr_Print();
++	}
++	Py_FatalError(message);
++}
++
++void initPython()
++{
++	if (PyEval_ThreadsInitialized() == 0) {
++		PyEval_InitThreads();
++	}
++
++	PyGILState_STATE gstate = PyGILState_Ensure();
++
++	if (PyArray_API == NULL) {
++		//This does not seem to be the best way to do this...
++		if (_import_array() < 0) {
++			fatal("Can't import numpy array");
++		}
++	}
++
++	PyGILState_Release(gstate);
++}
++
++PythonOperation::PythonOperation() : SingleThreadedOperation()
++{
++	for (int i = 0; i < COM_PYTHON_INPUT_IMAGES; i++) {
++		addInputSocket(COM_DT_COLOR);
++	}
++	for (int i = 0; i < COM_PYTHON_INPUT_VALUES; i++) {
++		addInputSocket(COM_DT_VALUE);
++	}
++	addOutputSocket(COM_DT_COLOR);
++	setResolutionInputSocketIndex(0);
++
++	m_data = NULL;
++
++	initPython();
++}
++
++void PythonOperation::initExecution()
++{
++	SingleThreadedOperation::initExecution();
++}
++
++void PythonOperation::deinitExecution()
++{
++	SingleThreadedOperation::deinitExecution();
++}
++
++std::string readPythonFileContent(const std::string& path)
++{
++	std::ifstream input(path);
++	std::stringstream buffer;
++	buffer << input.rdbuf();
++	return buffer.str();
++}
++
++PyObject *createScriptModule(const std::string& content, const std::string& path)
++{
++	PyObject *pyModule = PyModule_New("blender_com_python");
++	if (pyModule) {
++		PyModule_AddStringConstant(pyModule, "__file__", path.c_str());
++
++		PyObject *locals = PyModule_GetDict(pyModule); //Borrowed ref
++		PyObject *builtins = PyEval_GetBuiltins(); //Borrowed ref
++		PyDict_SetItemString(locals, "__builtins__", builtins);
++
++		PyObject *pyValue = PyRun_String(content.c_str(), Py_file_input, locals, locals);
++		if (pyValue) {
++			Py_DECREF(pyValue);
++		}
++		else {
++			PyErr_Print();
++		}
++	}
++	return pyModule;
++}
++
++bool callMethod(PyObject* pyModule, const char *name, PyObject* context)
++{
++	bool ok = true; //Assume no function is defined with the given name
++
++	PyObject* callback = PyDict_GetItemString(PyModule_GetDict(pyModule), name); //Borrowed ref
++	if (callback) {
++		ok = false; //Function found
++
++		PyObject* args = Py_BuildValue("(O)", context);
++		if (args) {
++			PyObject *tmp = PyObject_CallObject(callback, args);
++			if (tmp) {
++				ok = true;
++				Py_CLEAR(tmp);
++			}
++			else {
++				PyErr_Print();
++			}
++			Py_CLEAR(args);
++		}
++		else {
++			PyErr_Print();
++		}
++	}
++	else {
++		PyErr_Print();
++	}
++	return ok;
++}
++
++void addBuffersToContext(PyObject *context, const char *name, std::vector<MemoryBuffer*> *buffers)
++{
++	const int count = buffers->size();
++	PyObject *results = PyList_New(count);
++
++	for (int i = 0; i < count; i++) {
++		MemoryBuffer *buffer = buffers->at(i);
++
++		npy_intp dims[3];
++		dims[0] = buffer->getHeight(); //Height first dimension
++		dims[1] = buffer->getWidth();
++		dims[2] = 4;
++		PyObject *arr = PyArray_SimpleNewFromData(3, dims, NPY_FLOAT32, buffer->getBuffer());
++		if (arr) {
++			PyList_SetItem(results, i, arr); //Steals ref
++		}
++		else {
++			fatal("Can't create a numpy array from a buffer");
++		}
++	}
++
++	PyDict_SetItemString(context, name, results);
++	Py_DECREF(results);
++}
++
++void addValuesToContext(PyObject *context, const char *name, std::vector<float> *values)
++{
++	const int count = values->size();
++	PyObject *results = PyList_New(count);
++
++	for (int i = 0; i < count; i++) {
++		PyObject *pyFloat = PyFloat_FromDouble(values->at(i));
++		if (pyFloat) {
++			PyList_SET_ITEM(results, i, pyFloat); //Steals ref
++		}
++		else {
++			fatal("Can't create a value float");
++		}
++	}
++
++	PyDict_SetItemString(context, name, results);
++	Py_DECREF(results);
++}
++
++void clearBuffer(MemoryBuffer *buffer)
++{
++	const float invalid[] = { 1, 0, 0, 1 };
++	const int width = buffer->getWidth();
++	const int height = buffer->getHeight();
++
++	for (int y = 0; y < height; y++) {
++		for (int x = 0; x < width; x++) {
++			buffer->writePixel(x, y, invalid);
++		}
++	}
++}
++
++struct ThreadData {
++	ThreadCondition condition;
++	ThreadMutex *mutex;
++
++	PyObject *context;
++	PyObject *pyModule;
++	std::string scriptPath;
++	std::string scriptContent;
++	bool startOk;
++};
++
++void pythonMainThreadCallback(void* userData)
++{
++	BLI_assert(BLI_thread_is_main());
++
++	PyGILState_STATE gstate = PyGILState_Ensure();
++
++	ThreadData* data = (ThreadData*)userData;
++
++	data->pyModule = createScriptModule(data->scriptContent, data->scriptPath);
++	if (data->pyModule) {
++		data->startOk = callMethod(data->pyModule, "on_main", data->context);
++	}
++	PyGILState_Release(gstate);
++
++	BLI_condition_notify_all(&data->condition);
++}
++
++MemoryBuffer *PythonOperation::createMemoryBuffer(rcti *source)
++{
++	rcti rect;
++	rect.xmin = 0;
++	rect.ymin = 0;
++	rect.xmax = source->xmax;
++	rect.ymax = source->ymax;
++	MemoryBuffer *result = new MemoryBuffer(COM_DT_COLOR, &rect);
++
++	std::vector<MemoryBuffer*> inputs;
++	for (int i = 0; i < COM_PYTHON_INPUT_IMAGES; i++) {
++		MemoryBuffer *tile = (MemoryBuffer*)getInputSocketReader(i)->initializeTileData(source);
++		inputs.push_back(tile);
++	}
++
++	std::vector<MemoryBuffer*> outputs;
++	outputs.push_back(result);
++
++	for (int i = 0; i < outputs.size(); i++) {
++		clearBuffer(outputs[i]);
++	}
++
++	const std::string content = readPythonFileContent(m_path);
++
++	// Script import and main callback
++	PyGILState_STATE gstate;
++	gstate = PyGILState_Ensure();
++
++	PyObject* context = PyDict_New();
++	addBuffersToContext(context, "images", &inputs);
++	addBuffersToContext(context, "outputs", &outputs);
++
++	std::vector<float> values;
++	float value[4] = { 0 };
++	for (int i = 0; i < COM_PYTHON_INPUT_VALUES; i++) {
++		getInputSocketReader(COM_PYTHON_INPUT_IMAGES + i)->readSampled(value, 0, 0, COM_PS_NEAREST);
++		values.push_back(value[0]);
++	}
++	addValuesToContext(context, "inputs", &values);
++
++	PyGILState_Release(gstate);
++
++	ThreadData threadData;
++	threadData.condition = NULL;
++	threadData.mutex = BLI_mutex_alloc();
++	BLI_condition_init(&threadData.condition);
++
++	threadData.context = context;
++	threadData.pyModule = NULL;
++	threadData.scriptContent = content;
++	threadData.scriptPath = m_path;
++	threadData.startOk = false;
++
++	// Run Python init in the main thread and wait until it is ready
++	WM_run_in_main_thread(pythonMainThreadCallback, &threadData);
++	BLI_condition_wait(&threadData.condition, threadData.mutex);
++
++	// Async callback
++	gstate = PyGILState_Ensure();
++
++	bool endOk = false;
++	if (threadData.pyModule) {
++		endOk = callMethod(threadData.pyModule, "on_async", context);
++	}
++	Py_CLEAR(context);
++	Py_CLEAR(threadData.pyModule);
++
++	PyGILState_Release(gstate);
++
++	if (!threadData.startOk || !endOk) {
++		// A callback failed, erase all output buffers
++		for (int i = 0; i < outputs.size(); i++) {
++			clearBuffer(outputs[i]);
++		}
++	}
++
++	BLI_condition_end(&threadData.condition);
++	BLI_mutex_free(threadData.mutex);
++
++	return result;
++}
++
++bool PythonOperation::determineDependingAreaOfInterest(rcti * /*input*/, ReadBufferOperation *readOperation, rcti *output)
++{
++	if (isCached()) {
++		return false;
++	}
++	else {
++		rcti newInput;
++		newInput.xmin = 0;
++		newInput.ymin = 0;
++		newInput.xmax = getWidth();
++		newInput.ymax = getHeight();
++		return NodeOperation::determineDependingAreaOfInterest(&newInput, readOperation, output);
++	}
++}
+diff --git a/source/blender/compositor/operations/COM_PythonOperation.h b/source/blender/compositor/operations/COM_PythonOperation.h
+new file mode 100644
+index 0000000..42123e7
+--- /dev/null
++++ b/source/blender/compositor/operations/COM_PythonOperation.h
+@@ -0,0 +1,32 @@
++
++#ifndef _COM_PythonOperation_h_
++#define _COM_PythonOperation_h_
++
++#include <string>
++
++#include "COM_NodeOperation.h"
++#include "COM_SingleThreadedOperation.h"
++
++#define COM_PYTHON_INPUT_IMAGES 4
++#define COM_PYTHON_INPUT_VALUES 8
++
++class PythonOperation : public SingleThreadedOperation {
++private:
++	const NodePython *m_data;
++	std::string m_path;
++public:
++	PythonOperation();
++
++	void initExecution();
++	void deinitExecution();
++	bool determineDependingAreaOfInterest(rcti *input, ReadBufferOperation *readOperation, rcti *output);
++
++	void setData(const NodePython *data) { this->m_data = data; }
++	void setPath(const std::string& path) { this->m_path = path; }
++
++protected:
++
++	MemoryBuffer *createMemoryBuffer(rcti *rect);
++};
++
++#endif
+diff --git a/source/blender/editors/space_node/drawnode.c b/source/blender/editors/space_node/drawnode.c
+index 8b10320..482811c 100644
+--- a/source/blender/editors/space_node/drawnode.c
++++ b/source/blender/editors/space_node/drawnode.c
+@@ -2483,6 +2483,49 @@ static void node_composit_buts_cornerpin(uiLayout *UNUSED(layout), bContext *UNU
+ {
+ }
+ 
++extern char** explainGmicCommands(const char*, int*);
++extern void freeGmicExplainCommands(char**, int);
++
++static void node_composit_buts_gmic(uiLayout *layout, bContext *UNUSED(C), PointerRNA *ptr)
++{
++	uiItemR(layout, ptr, "quality", UI_ITEM_R_SLIDER, NULL, ICON_NONE);
++	uiItemR(layout, ptr, "command", 0, "", ICON_NONE);
++	uiItemR(layout, ptr, "normalize", 0, NULL, ICON_NONE);
++	uiItemR(layout, ptr, "explain", 0, NULL, ICON_NONE);
++
++	bNode *node = ptr->data;
++	NodeGmic *data = node->storage;
++	if (data->flag & CMP_NODE_GMIC_EXPLAIN) {
++		uiLayout *base = layout;
++
++		int count = 0;
++		char** help = explainGmicCommands(data->command, &count);
++		for (int i = 0; i < count; i += 2) {
++			if (strlen(help[i + 1]) == 0) {
++				base = uiLayoutBox(layout);
++			}
++			uiLayout *row = uiLayoutRow(base, false);
++
++			uiItemL(row, help[i], ICON_NONE);
++			uiItemL(row, help[i + 1], ICON_NONE);
++		}
++		freeGmicExplainCommands(help, count);
++	}
++}
++
++static void node_composit_buts_glsl(uiLayout *layout, bContext *UNUSED(C), PointerRNA *ptr)
++{
++	uiItemL(layout, IFACE_("Fragment shader:"), ICON_NONE);
++	uiItemR(layout, ptr, "filepath", 0, "", ICON_NONE);
++	uiItemR(layout, ptr, "gamma", 0, NULL, ICON_NONE);
++}
++
++static void node_composit_buts_python(uiLayout *layout, bContext *UNUSED(C), PointerRNA *ptr)
++{
++	uiItemL(layout, IFACE_("Script file:"), ICON_NONE);
++	uiItemR(layout, ptr, "filepath", 0, "", ICON_NONE);
++}
++
+ static void node_composit_buts_sunbeams(uiLayout *layout, bContext *UNUSED(C), PointerRNA *ptr)
+ {
+ 	uiItemR(layout, ptr, "source", UI_ITEM_R_EXPAND, "", ICON_NONE);
+@@ -2721,6 +2764,18 @@ static void node_composit_set_butfunc(bNodeType *ntype)
+ 		case CMP_NODE_SUNBEAMS:
+ 			ntype->draw_buttons = node_composit_buts_sunbeams;
+ 			break;
++		case CMP_NODE_GMIC:
++			ntype->draw_buttons = node_composit_buts_gmic;
++			ntype->width = ntype->width * 2;
++			break;
++		case CMP_NODE_GLSL:
++			ntype->draw_buttons = node_composit_buts_glsl;
++			ntype->width += 50;
++			break;
++		case CMP_NODE_PYTHON:
++			ntype->draw_buttons = node_composit_buts_python;
++			ntype->width += 50;
++			break;
+ 		case CMP_NODE_BRIGHTCONTRAST:
+ 			ntype->draw_buttons = node_composit_buts_brightcontrast;
+ 	}
+diff --git a/source/blender/makesdna/DNA_node_types.h b/source/blender/makesdna/DNA_node_types.h
+index e6bc315..448dbab 100644
+--- a/source/blender/makesdna/DNA_node_types.h
++++ b/source/blender/makesdna/DNA_node_types.h
+@@ -893,6 +893,23 @@ typedef struct NodeShaderUVMap {
+ 	char uv_map[64];
+ } NodeShaderUVMap;
+ 
++typedef struct NodeGmic {
++	float quality;
++	char flag;
++	char command[1024];
++	char pad[3];
++} NodeGmic;
++
++typedef struct NodeGlsl {
++	char filepath[1024]; /* 1024 = FILE_MAX */
++	char flag;
++	char pad[3];
++} NodeGlsl;
++
++typedef struct NodePython {
++	char filepath[1024]; /* 1024 = FILE_MAX */
++} NodePython;
++
+ typedef struct NodeSunBeams {
+ 	float source[2];
+ 
+@@ -906,6 +923,12 @@ typedef struct NodeSunBeams {
+ /* script node flag */
+ #define NODE_SCRIPT_AUTO_UPDATE		1
+ 
++/* GMIC node flag */
++#define CMP_NODE_GMIC_NORMALIZE		1
++#define CMP_NODE_GMIC_EXPLAIN		2
++
++/* GLSL node flag */
++#define CMP_NODE_GLSL_GAMMA			1
+ 
+ /* frame node flags */
+ #define NODE_FRAME_SHRINK		1	/* keep the bounding box minimal */
+diff --git a/source/blender/makesrna/intern/rna_nodetree.c b/source/blender/makesrna/intern/rna_nodetree.c
+index 4c096be..93126eb 100644
+--- a/source/blender/makesrna/intern/rna_nodetree.c
++++ b/source/blender/makesrna/intern/rna_nodetree.c
+@@ -6799,6 +6799,64 @@ static void def_cmp_planetrackdeform(StructRNA *srna)
+ 	RNA_def_property_update(prop, NC_NODE | NA_EDITED, "rna_Node_update");
+ }
+ 
++static void def_cmp_gmic(StructRNA *srna)
++{
++	PropertyRNA *prop;
++
++	RNA_def_struct_sdna_from(srna, "NodeGmic", "storage");
++
++	prop = RNA_def_property(srna, "quality", PROP_FLOAT, PROP_UNSIGNED);
++	RNA_def_property_float_sdna(prop, NULL, "quality");
++	RNA_def_property_range(prop, 0.0f, 100.0f);
++	RNA_def_property_ui_range(prop, 0.0f, 1.0f, 10, 3);
++	RNA_def_property_ui_text(prop, "Quality", "");
++	RNA_def_property_update(prop, NC_NODE | NA_EDITED, "rna_Node_update");
++
++	prop = RNA_def_property(srna, "normalize", PROP_BOOLEAN, PROP_NONE);
++	RNA_def_property_boolean_sdna(prop, NULL, "flag", CMP_NODE_GMIC_NORMALIZE);
++	RNA_def_property_ui_text(prop, "Normalize image data", "Normalize, convert and mirror image data");
++	RNA_def_property_update(prop, NC_NODE | NA_EDITED, "rna_Node_update");
++
++	prop = RNA_def_property(srna, "explain", PROP_BOOLEAN, PROP_NONE);
++	RNA_def_property_boolean_sdna(prop, NULL, "flag", CMP_NODE_GMIC_EXPLAIN);
++	RNA_def_property_ui_text(prop, "Show parameters for used GIMP filters", "Try to show command parameters and limits in plain text");
++	RNA_def_property_update(prop, NC_NODE | NA_EDITED, "rna_Node_update");
++
++	prop = RNA_def_property(srna, "command", PROP_STRING, PROP_NONE);
++	RNA_def_property_string_sdna(prop, NULL, "command");
++	RNA_def_property_ui_text(prop, "Command", "");
++	RNA_def_property_update(prop, NC_NODE | NA_EDITED, "rna_Node_update");
++}
++
++static void def_cmp_glsl(StructRNA *srna)
++{
++	PropertyRNA *prop;
++
++	RNA_def_struct_sdna_from(srna, "NodeGlsl", "storage");
++
++	prop = RNA_def_property(srna, "filepath", PROP_STRING, PROP_FILEPATH);
++	RNA_def_property_string_sdna(prop, NULL, "filepath");
++	RNA_def_property_ui_text(prop, "Shader file", "");
++	RNA_def_property_update(prop, NC_NODE | NA_EDITED, "rna_Node_update");
++
++	prop = RNA_def_property(srna, "gamma", PROP_BOOLEAN, PROP_NONE);
++	RNA_def_property_boolean_sdna(prop, NULL, "flag", CMP_NODE_GLSL_GAMMA);
++	RNA_def_property_ui_text(prop, "Gamma correction", "Apply gamma correction to result image");
++	RNA_def_property_update(prop, NC_NODE | NA_EDITED, "rna_Node_update");
++}
++
++static void def_cmp_python(StructRNA *srna)
++{
++	PropertyRNA *prop;
++
++	RNA_def_struct_sdna_from(srna, "NodePython", "storage");
++
++	prop = RNA_def_property(srna, "filepath", PROP_STRING, PROP_FILEPATH);
++	RNA_def_property_string_sdna(prop, NULL, "filepath");
++	RNA_def_property_ui_text(prop, "Script file", "");
++	RNA_def_property_update(prop, NC_NODE | NA_EDITED, "rna_Node_update");
++}
++
+ static void def_cmp_sunbeams(StructRNA *srna)
+ {
+ 	PropertyRNA *prop;
+diff --git a/source/blender/nodes/CMakeLists.txt b/source/blender/nodes/CMakeLists.txt
+index 21f9afe..8e01122 100644
+--- a/source/blender/nodes/CMakeLists.txt
++++ b/source/blender/nodes/CMakeLists.txt
+@@ -124,6 +124,9 @@ set(SRC
+ 	composite/nodes/node_composite_switch.c
+ 	composite/nodes/node_composite_switchview.c
+ 	composite/nodes/node_composite_colorcorrection.c
++	composite/nodes/node_composite_gmic.c
++	composite/nodes/node_composite_glsl.c
++	composite/nodes/node_composite_python.c
+ 	composite/nodes/node_composite_pixelate.c
+ 
+ 	composite/node_composite_tree.c
+diff --git a/source/blender/nodes/NOD_composite.h b/source/blender/nodes/NOD_composite.h
+index a5c2e60..2c6de16 100644
+--- a/source/blender/nodes/NOD_composite.h
++++ b/source/blender/nodes/NOD_composite.h
+@@ -138,6 +138,9 @@ void register_node_type_cmp_pixelate(void);
+ void register_node_type_cmp_trackpos(void);
+ void register_node_type_cmp_planetrackdeform(void);
+ void register_node_type_cmp_cornerpin(void);
++void register_node_type_cmp_gmic(void);
++void register_node_type_cmp_glsl(void);
++void register_node_type_cmp_python(void);
+ 
+ void node_cmp_rlayers_outputs(struct bNodeTree *ntree, struct bNode *node);
+ void node_cmp_rlayers_register_pass(struct bNodeTree *ntree, struct bNode *node, struct Scene *scene, struct SceneRenderLayer *srl, const char *name, int type);
+diff --git a/source/blender/nodes/NOD_static_types.h b/source/blender/nodes/NOD_static_types.h
+index 1384429..76de95b 100644
+--- a/source/blender/nodes/NOD_static_types.h
++++ b/source/blender/nodes/NOD_static_types.h
+@@ -215,6 +215,9 @@ DefNode( CompositorNode, CMP_NODE_PIXELATE,       0,                      "PIXEL
+ DefNode( CompositorNode, CMP_NODE_PLANETRACKDEFORM,def_cmp_planetrackdeform,"PLANETRACKDEFORM",PlaneTrackDeform,"Plane Track Deform",""            )
+ DefNode( CompositorNode, CMP_NODE_CORNERPIN,      0,                      "CORNERPIN",      CornerPin,        "Corner Pin",        ""              )
+ DefNode( CompositorNode, CMP_NODE_SUNBEAMS,       def_cmp_sunbeams,       "SUNBEAMS",       SunBeams,         "Sun Beams",         ""              )
++DefNode( CompositorNode, CMP_NODE_GMIC,           def_cmp_gmic,           "GMIC",           Gmic,             "G'MIC",             ""              )
++DefNode( CompositorNode, CMP_NODE_GLSL,	          def_cmp_glsl,	          "GLSL",           Glsl,             "GLSL Shader",       ""              )
++DefNode( CompositorNode, CMP_NODE_PYTHON,         def_cmp_python,         "PYTHON",         Python,           "Python Script",     ""              )
+ 
+ DefNode( TextureNode,    TEX_NODE_OUTPUT,         def_tex_output,         "OUTPUT",         Output,           "Output",            ""              )
+ DefNode( TextureNode,    TEX_NODE_CHECKER,        0,                      "CHECKER",        Checker,          "Checker",           ""              )
+diff --git a/source/blender/nodes/composite/nodes/node_composite_glsl.c b/source/blender/nodes/composite/nodes/node_composite_glsl.c
+new file mode 100644
+index 0000000..9a390fd
+--- /dev/null
++++ b/source/blender/nodes/composite/nodes/node_composite_glsl.c
+@@ -0,0 +1,42 @@
++
++#include "node_composite_util.h"
++
++static bNodeSocketTemplate cmp_node_glsl_in[] = {
++	{ SOCK_RGBA,  1, N_("Channel 0"),      0.0f, 0.0f, 0.0f, 1.0f },
++	{ SOCK_RGBA,  1, N_("Channel 1"),      0.0f, 0.0f, 0.0f, 1.0f },
++	{ SOCK_RGBA,  1, N_("Channel 2"),      0.0f, 0.0f, 0.0f, 1.0f },
++	{ SOCK_RGBA,  1, N_("Channel 3"),      0.0f, 0.0f, 0.0f, 1.0f },
++	{ SOCK_FLOAT, 1, N_("Time"),	       0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
++	{ SOCK_FLOAT, 1, N_("Input 0"),	       0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
++	{ SOCK_FLOAT, 1, N_("Input 1"),        0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
++	{ SOCK_FLOAT, 1, N_("Input 2"),        0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
++	{ SOCK_FLOAT, 1, N_("Input 3"),        0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
++	{ -1, 0, "" }
++};
++
++static bNodeSocketTemplate cmp_node_glsl_out[] = {
++	{ SOCK_RGBA, 0, N_("Image") },
++	{ -1, 0, "" }
++};
++
++static void node_composit_init_glsl(bNodeTree *UNUSED(ntree), bNode *node)
++{
++	NodeGlsl *data = MEM_callocN(sizeof(NodeGlsl), "glsl node");
++
++	data->flag = CMP_NODE_GLSL_GAMMA;
++	memset(data->filepath, 0, sizeof(data->filepath));
++
++	node->storage = data;
++}
++
++void register_node_type_cmp_glsl(void)
++{
++	static bNodeType ntype;
++
++	cmp_node_type_base(&ntype, CMP_NODE_GLSL, "GLSL Shader", NODE_CLASS_OP_FILTER, 0);
++	node_type_socket_templates(&ntype, cmp_node_glsl_in, cmp_node_glsl_out);
++	node_type_init(&ntype, node_composit_init_glsl);
++	node_type_storage(&ntype, "NodeGlsl", node_free_standard_storage, node_copy_standard_storage);
++
++	nodeRegisterType(&ntype);
++}
+diff --git a/source/blender/nodes/composite/nodes/node_composite_gmic.c b/source/blender/nodes/composite/nodes/node_composite_gmic.c
+new file mode 100644
+index 0000000..7e76fee
+--- /dev/null
++++ b/source/blender/nodes/composite/nodes/node_composite_gmic.c
+@@ -0,0 +1,40 @@
++
++#include "node_composite_util.h"
++
++static bNodeSocketTemplate cmp_node_gmic_in[] = {
++	{ SOCK_RGBA,  1, N_("Image"),      1.0f, 1.0f, 1.0f, 1.0f },
++	{ SOCK_FLOAT, 1, N_("$arg1"),      1.0f, 1.0f, 1.0f, 1.0f, 0.0f, FLT_MAX },
++	{ SOCK_FLOAT, 1, N_("$arg2"),      1.0f, 1.0f, 1.0f, 1.0f, 0.0f, FLT_MAX },
++	{ SOCK_FLOAT, 1, N_("$arg3"),      1.0f, 1.0f, 1.0f, 1.0f, 0.0f, FLT_MAX },
++	{ SOCK_FLOAT, 1, N_("$arg4"),      1.0f, 1.0f, 1.0f, 1.0f, 0.0f, FLT_MAX },
++	{ SOCK_FLOAT, 1, N_("$arg5"),      1.0f, 1.0f, 1.0f, 1.0f, 0.0f, FLT_MAX },
++	{ -1, 0, "" }
++};
++
++static bNodeSocketTemplate cmp_node_gmic_out[] = {
++	{ SOCK_RGBA, 0, N_("Image") },
++	{ -1, 0, "" }
++};
++
++static void node_composit_init_gmic(bNodeTree *UNUSED(ntree), bNode *node)
++{
++	NodeGmic *data = MEM_callocN(sizeof(NodeGmic), "gmic node");
++
++	data->quality = 0.5f;
++	data->flag = CMP_NODE_GMIC_NORMALIZE;
++	memset(data->command, 0, sizeof(data->command));
++
++	node->storage = data;
++}
++
++void register_node_type_cmp_gmic(void)
++{
++	static bNodeType ntype;
++
++	cmp_node_type_base(&ntype, CMP_NODE_GMIC, "G'MIC", NODE_CLASS_OP_FILTER, 0);
++	node_type_socket_templates(&ntype, cmp_node_gmic_in, cmp_node_gmic_out);
++	node_type_init(&ntype, node_composit_init_gmic);
++	node_type_storage(&ntype, "NodeGmic", node_free_standard_storage, node_copy_standard_storage);
++
++	nodeRegisterType(&ntype);
++}
+diff --git a/source/blender/nodes/composite/nodes/node_composite_python.c b/source/blender/nodes/composite/nodes/node_composite_python.c
+new file mode 100644
+index 0000000..4651303
+--- /dev/null
++++ b/source/blender/nodes/composite/nodes/node_composite_python.c
+@@ -0,0 +1,43 @@
++
++#include "node_composite_util.h"
++
++static bNodeSocketTemplate cmp_node_python_in[] = {
++	{ SOCK_RGBA,  1, N_("Image 0"),      1.0f, 1.0f, 1.0f, 1.0f },
++	{ SOCK_RGBA,  1, N_("Image 1"),      1.0f, 1.0f, 1.0f, 1.0f },
++	{ SOCK_RGBA,  1, N_("Image 2"),      1.0f, 1.0f, 1.0f, 1.0f },
++	{ SOCK_RGBA,  1, N_("Image 3"),      1.0f, 1.0f, 1.0f, 1.0f },
++	{ SOCK_FLOAT, 1, N_("Input 0"),	     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
++	{ SOCK_FLOAT, 1, N_("Input 1"),	     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
++	{ SOCK_FLOAT, 1, N_("Input 2"),	     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
++	{ SOCK_FLOAT, 1, N_("Input 3"),	     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
++	{ SOCK_FLOAT, 1, N_("Input 4"),	     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
++	{ SOCK_FLOAT, 1, N_("Input 5"),	     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
++	{ SOCK_FLOAT, 1, N_("Input 6"),	     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
++	{ SOCK_FLOAT, 1, N_("Input 7"),	     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, FLT_MAX },
++	{ -1, 0, "" }
++};
++
++static bNodeSocketTemplate cmp_node_python_out[] = {
++	{ SOCK_RGBA, 0, N_("Output 0") },
++	{ -1, 0, "" }
++};
++
++static void node_composit_init_python(bNodeTree *UNUSED(ntree), bNode *node)
++{
++	NodePython *data = MEM_callocN(sizeof(NodePython), "python node");
++	memset(data->filepath, 0, sizeof(data->filepath));
++
++	node->storage = data;
++}
++
++void register_node_type_cmp_python(void)
++{
++	static bNodeType ntype;
++
++	cmp_node_type_base(&ntype, CMP_NODE_PYTHON, "Python Script", NODE_CLASS_OP_FILTER, 0);
++	node_type_socket_templates(&ntype, cmp_node_python_in, cmp_node_python_out);
++	node_type_init(&ntype, node_composit_init_python);
++	node_type_storage(&ntype, "NodePython", node_free_standard_storage, node_copy_standard_storage);
++
++	nodeRegisterType(&ntype);
++}
+diff --git a/source/blender/windowmanager/WM_api.h b/source/blender/windowmanager/WM_api.h
+index e400268..a603cfc 100644
+--- a/source/blender/windowmanager/WM_api.h
++++ b/source/blender/windowmanager/WM_api.h
+@@ -496,6 +496,10 @@ bool        WM_jobs_has_running(struct wmWindowManager *wm);
+ void		WM_job_main_thread_lock_acquire(struct wmJob *job);
+ void		WM_job_main_thread_lock_release(struct wmJob *job);
+ 
++			/* sync */
++typedef void(*MainThreadCallback)(void*);
++void		WM_run_in_main_thread(MainThreadCallback, void*);
++
+ 			/* clipboard */
+ char       *WM_clipboard_text_get(bool selection, int *r_len);
+ char       *WM_clipboard_text_get_firstline(bool selection, int *r_len);
+diff --git a/source/blender/windowmanager/intern/wm_init_exit.c b/source/blender/windowmanager/intern/wm_init_exit.c
+index e73ec2b..ad93b28 100644
+--- a/source/blender/windowmanager/intern/wm_init_exit.c
++++ b/source/blender/windowmanager/intern/wm_init_exit.c
+@@ -147,11 +147,14 @@ static void wm_undo_kill_callback(bContext *C)
+ 	WM_jobs_kill_all_except(CTX_wm_manager(C), CTX_wm_screen(C));
+ }
+ 
++void wm_window_create_main_queue();
++
+ bool wm_start_with_console = false; /* used in creator.c */
+ 
+ /* only called once, for startup */
+ void WM_init(bContext *C, int argc, const char **argv)
+ {
++	wm_window_create_main_queue();
+ 	
+ 	if (!G.background) {
+ 		wm_ghost_init(C);   /* note: it assigns C to ghost! */
+diff --git a/source/blender/windowmanager/intern/wm_operators.c b/source/blender/windowmanager/intern/wm_operators.c
+index fbd6d89..b1c5445 100644
+--- a/source/blender/windowmanager/intern/wm_operators.c
++++ b/source/blender/windowmanager/intern/wm_operators.c
+@@ -1856,6 +1856,9 @@ static uiBlock *wm_block_create_splash(bContext *C, ARegion *ar, void *UNUSED(ar
+ 	else if (STREQ(STRINGIFY(BLENDER_VERSION_CYCLE), "release")) {
+ 		version_suffix = STRINGIFY(BLENDER_VERSION_CHAR);
+ 	}
++
++	version_suffix = "Nodes 0.3.0";
++
+ 	if (version_suffix != NULL && version_suffix[0]) {
+ 		/* placed after the version number in the image,
+ 		 * placing y is tricky to match baseline */
+diff --git a/source/blender/windowmanager/intern/wm_window.c b/source/blender/windowmanager/intern/wm_window.c
+index 79078b3..0dfe799 100644
+--- a/source/blender/windowmanager/intern/wm_window.c
++++ b/source/blender/windowmanager/intern/wm_window.c
+@@ -45,6 +45,7 @@
+ 
+ #include "BLI_math.h"
+ #include "BLI_blenlib.h"
++#include "BLI_threads.h"
+ #include "BLI_utildefines.h"
+ 
+ #include "BLT_translation.h"
+@@ -1355,12 +1356,52 @@ static int wm_window_timer(const bContext *C)
+ 	return retval;
+ }
+ 
++ThreadQueue* wm_main_thread_queue = NULL;
++
++typedef struct MainThreadWork {
++	MainThreadCallback callback;
++	void *user_data;
++} MainThreadWork;
++
++void WM_run_in_main_thread(MainThreadCallback callback, void *user_data)
++{
++	MainThreadWork* work = malloc(sizeof(MainThreadWork));
++	work->callback = callback;
++	work->user_data = user_data;
++	BLI_thread_queue_push(wm_main_thread_queue, work);
++}
++
++void wm_window_create_main_queue()
++{
++	//Never freed
++	if (wm_main_thread_queue == NULL) {
++		wm_main_thread_queue = BLI_thread_queue_init();
++	}
++}
++
++int wm_window_process_main_queue_events()
++{
++	int count = 0;
++
++	MainThreadWork *work = NULL;
++	while (work = BLI_thread_queue_pop_timeout(wm_main_thread_queue, 0)) {
++		(work->callback)(work->user_data);
++
++		free(work);
++
++		count++;
++	}
++	return count;
++}
++
+ void wm_window_process_events(const bContext *C) 
+ {
+ 	int hasevent;
+ 
+ 	BLI_assert(BLI_thread_is_main());
+ 
++	wm_window_process_main_queue_events();
++
+ 	hasevent = GHOST_ProcessEvents(g_system, 0); /* 0 is no wait */
+ 
+ 	if (hasevent)
+diff --git a/source/creator/CMakeLists.txt b/source/creator/CMakeLists.txt
+index 2bda651..5c1679d 100644
+--- a/source/creator/CMakeLists.txt
++++ b/source/creator/CMakeLists.txt
+@@ -1012,6 +1012,7 @@ add_dependencies(blender makesdna)
+ 
+ setup_blender_sorted_libs()
+ target_link_libraries(blender ${BLENDER_SORTED_LIBS})
++target_link_libraries(blender "${CMAKE_SOURCE_DIR}/extern/gmic64/libcgmicstatic.lib")
+ 
+ setup_liblinks(blender)
+ 

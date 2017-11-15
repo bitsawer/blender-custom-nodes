@@ -3,14 +3,14 @@
 Support for three new compositor nodes:
 
 * [G'MIC](http://gmic.eu/) node.
-* OpenGL GLSL fragment shader node. Mostly [Shadertoy](https://www.shadertoy.com/) (Warning: heavy site) compatible.
+* OpenGL GLSL [Shadertoy](https://www.shadertoy.com/) (warning: heavy link) compatible fragment shader node.
 * Python script node.
-
-All nodes are in the compositor under the "Add -> Filter". Watch the [demo video](https://www.youtube.com/watch?v=vGNB13ovwk4) to see the node in action.
 
 ## [Get the latest binary release (Win64)](/../../releases/latest)
 
 If you encounter missing .dll errors when starting Blender, try installing [Microsoft Visual C++ Redistributable for Visual Studio 2017](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
+
+The build is based on Blender master branch, so Python version 3.6 is bundled instead of 3.5. This is important if you use addons that contain native code compiled against a specific python version. This also means the build contains fixes and additions not in the stock Blender, but possibly also new bugs or incompatibilities.
 
 ## What's new?
 
@@ -20,6 +20,8 @@ If you encounter missing .dll errors when starting Blender, try installing [Micr
 * Added Python script node
 
 ## G'MIC Node
+
+[Watch YouTube demo](https://www.youtube.com/watch?v=vGNB13ovwk4)
 
 Some operations can be pretty slow, especially with large images. You can adjust the scaling quality if you are not rendering the final image and you are just tweaking other nodes.
 
@@ -33,7 +35,9 @@ The release ships with a version of the GIMP-plugin and most filters seem to wor
 
 ## GLSL Shader Node
 
-The shader node uses (mostly) Shadertoy compatible functions and variables. See the [Shadertoy documentation](https://www.shadertoy.com/howto) for more information. You can use this very simple script to test node functionality:
+[Watch YouTube demo](https://www.youtube.com/watch?v=S5NdgZBxneE)
+
+The shader node uses (mostly) Shadertoy compatible functions and variables. See the [Shadertoy documentation](https://www.shadertoy.com/howto) for more information. This node can not be used if Blender is run from command line in a background mode because the whole OpenGL subsystem is not initialized in that case. You can use this very simple script to test node functionality:
 
 ```glsl
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
@@ -53,6 +57,8 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
 ```
 
 ## Python Script Node
+
+[Watch YouTube demo](https://www.youtube.com/watch?v=RaYfQT7r74s)
 
 The purpose of this node is to enable complex new functionality to the compositor without recompiling Blender. The node can be used to make simple modifications to the input image, draw shapes or text, generate procedural images or even use complex third-party libraries. Pillow image processing library is included in the distribution. Thread safety of Pillow is not explicitly documented, so it might be safest to only use it during script import and in on_main().
 
@@ -105,9 +111,9 @@ def on_async(context):
 
 ## Troubleshooting and tips
 
-* You can accidentally put commands (like "-display" or just a single, lone "-"-character) into the node which will prompt GMIC to do something interactively. Don't do that. You can usually notice this if the progress bar in the compositing view is not going away (or the filter can just be slow). In some cases you can open the console and type some text and press enter to recover. Sometimes the safest bet is to kill the Blender-process and start it again.
+* If the image is red, there was an error with the node. Usually a misspelled command or wrong arguments. Check the console (Window -> Toggle System Console) for more information about what went wrong.
 
-* If the image is red, there was an error with the GMIC. Usually a misspelled command or wrong arguments. Check the console (Window -> Toggle System Console) for more information about what went wrong.
+* You can accidentally put commands (like "-display" or just a single, lone "-"-character) into the node which will prompt GMIC to do something interactively. Don't do that. You can usually notice this if the progress bar in the compositing view is not going away (or the filter can just be slow). In some cases you can open the console and type some text and press enter to recover. Sometimes the safest bet is to kill the Blender-process and start it again.
 
 * Try to fiddle with the "Use Alpha"-flag in the final "Composite"-node. Or connect the image source node "Alpha" directly into the final "Composite"-node alpha to ignore any (possibly unwanted) alpha changes done by the G'MIC filter.
 

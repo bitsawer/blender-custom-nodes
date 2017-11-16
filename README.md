@@ -2,15 +2,15 @@
 
 Support for three new compositor nodes:
 
-* [G'MIC](http://gmic.eu/) node.
-* OpenGL GLSL [Shadertoy](https://www.shadertoy.com/) (warning: heavy link) compatible fragment shader node.
-* Python script node.
+* [G'MIC](http://gmic.eu/) node
+* OpenGL GLSL [Shadertoy](https://www.shadertoy.com/) (warning: heavy site) compatible fragment shader node
+* Python script node
 
 ## [Get the latest binary release (Win64)](/../../releases/latest)
 
 If you encounter missing .dll errors when starting Blender, try installing [Microsoft Visual C++ Redistributable for Visual Studio 2017](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
 
-The build is based on Blender master branch, so Python version 3.6 is bundled instead of 3.5. This is important if you use addons that contain native code compiled against a specific python version. This also means the build contains fixes and additions not in the stock Blender, but possibly also new bugs or incompatibilities.
+The build is based on Blender master branch, so Python version 3.6 is bundled instead of 3.5. This is important if you use addons that contain native code compiled against a specific Python version. This also means the build contains fixes and additions not in the stock Blender, but possibly also new bugs or incompatibilities.
 
 ## What's new?
 
@@ -25,7 +25,7 @@ The build is based on Blender master branch, so Python version 3.6 is bundled in
 
 Some operations can be pretty slow, especially with large images. You can adjust the scaling quality if you are not rendering the final image and you are just tweaking other nodes.
 
-The release ships with a version of the GIMP-plugin and most filters seem to work out of the box. This is still work in progess, so some of them don't work yet. Many GIMP filters use images that are placed in your "%APPDATA%/gmic"-directory. G'MIC bundled with the Blender release will find them from there if they exist. You can download the whole package from [this link](http://gmic.eu/gmic_all_data.zip) and extract the contents into the target directory.
+The release ships with a version of the GIMP-plugin and most filters seem to work out of the box. This is still work in progess, so some of them don't work yet. Many GIMP filters use images that are placed in your *%APPDATA%/gmic*-directory. G'MIC bundled with the Blender release will find them from there if they exist. You can download the whole package from [this link](http://gmic.eu/gmic_all_data.zip) and extract the contents into the target directory.
 
 * Quality setting can be used to scale down the image for faster processing. This is useful if you are working with a large image with a complex node tree. Just remember to set quality to high once you are ready to save the final output.
 
@@ -46,7 +46,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
 }
 ```
 
-Another simple example is a mix node that mixes input image channels 0 and 1 together. If the images are read from a file/render layer and not generated in shader, disable node Gamma Correction. Control the mix factor by adjusting the node Input 0 (should be from 0.0 to 1.0).
+Another simple example is a mix node that mixes input image channels 0 and 1 together. If the images are read from a file/render layer and not generated in shader, disable node gamma correction. Control the mix factor by adjusting the node Input 0 (should be from 0.0 to 1.0).
 
 ```glsl
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
@@ -60,11 +60,11 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
 
 [Watch YouTube demo](https://www.youtube.com/watch?v=RaYfQT7r74s)
 
-The purpose of this node is to enable complex new functionality to the compositor without recompiling Blender. The node can be used to make simple modifications to the input image, draw shapes or text, generate procedural images or even use complex third-party libraries. Pillow image processing library is included in the distribution. Thread safety of Pillow is not explicitly documented, so it might be safest to only use it during script import and in on_main().
+The purpose of this node is to enable complex new functionality in the compositor without recompiling Blender. The node can be used to make simple modifications to the input image, draw shapes or text, generate procedural images or even use complex third-party libraries like [OpenCV](https://opencv.org/) and [Pillow](https://pillow.readthedocs.io/en/4.3.x/). As a convenience Pillow image processing library is included in the distribution. Thread safety of Pillow is not explicitly documented, so it might be safest to only use it during script import and in on_main().
 
-A **pycompositor** helper module is can be imported by the scripts. It contains some helper functions and it can be used to interface with the [Pillow](https://pillow.readthedocs.io/en/4.3.x/) image processing library. The module is located in ***2.79/scripts/modules*** directory and can be useful as an example.
+A **pycompositor** helper module is can be imported by the scripts. It contains some helper functions and it can be used to interface with the Pillow library. The module is located in *2.79/scripts/modules* directory and can be useful as an example.
 
-Here is a simple example script. Images are [numpy arrays](http://www.numpy.org/) which makes it possible to do image processing in an efficient manner. The images are 3D-arrays with a shape of (height, width, depth). Depth is always 4 (red, green, blue and alpha). Image data is also "upside down" as the y-axis starts from the bottom.
+Here is a simple example script. Images are [NumPy arrays](http://www.numpy.org/) which makes it possible to do image processing in an efficient manner. The images are 3D-arrays with a shape of (height, width, depth). Depth is always 4 (red, green, blue and alpha). Image data is also "upside down" as the y-axis starts from the bottom, but you can use *numpy.flip(image, 0)* to flip the image vertically.
 
 ```python
 import bpy # If you want to read any Blender data
@@ -104,16 +104,16 @@ def on_main(context):
     
 def on_async(context):
     """on_async() is called in background thread after on_main() and should be used for processing 
-        that takes a long time to avoid blocking Blender UI. Do not touch anything that is not
+        that takes a long time in order to avoid blocking Blender UI. Do not touch anything that is not
         thread safe from this function."""
     pass
 ```
 
 ## Troubleshooting and tips
 
-* If the image is red, there was an error with the node. Usually a misspelled command or wrong arguments. Check the console (Window -> Toggle System Console) for more information about what went wrong.
+* If the node image output is red, there was an error with the node. Usually a misspelled command or wrong arguments. Check the console (Window -> Toggle System Console) for more information about what went wrong.
 
-* You can accidentally put commands (like "-display" or just a single, lone "-"-character) into the node which will prompt GMIC to do something interactively. Don't do that. You can usually notice this if the progress bar in the compositing view is not going away (or the filter can just be slow). In some cases you can open the console and type some text and press enter to recover. Sometimes the safest bet is to kill the Blender-process and start it again.
+* You can accidentally put commands (like "-display" or just a single, lone "-"-character) into the node which will prompt GMIC to do something interactively. Don't do that. You can usually notice this if the progress bar in the compositing view is not going away (or the filter can just be slow). In some cases you can open the console and type some text and press enter to recover. Sometimes the safest bet is to kill the Blender process and start it again.
 
 * Try to fiddle with the "Use Alpha"-flag in the final "Composite"-node. Or connect the image source node "Alpha" directly into the final "Composite"-node alpha to ignore any (possibly unwanted) alpha changes done by the G'MIC filter.
 
